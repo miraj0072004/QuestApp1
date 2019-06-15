@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="QuestApp1.Views.QuestionPage"
+             xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+             xmlns:ViewModels ="clr-namespace:QuestApp1.ViewModels">
+    <ContentPage.BindingContext>
+        <ViewModels:QuestionViewModel/>
+    </ContentPage.BindingContext>
+    
+        <StackLayout x:Name="SlQuest">
+            <Label Text="Welcome to the Quest!" HorizontalOptions="CenterAndExpand" />
+
+            <Frame>
+                <Label Text="{Binding QuestionRetrieved.QuestionText}" FontAttributes="Bold"/>
+            </Frame>
+
+        <!--<ListView ItemsSource="{Binding QuestionRetrieved.Answers}"
+                          HasUnevenRows="True" BackgroundColor="DarkBlue"
+                          VerticalOptions="Center">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Label VerticalOptions="FillAndExpand" BackgroundColor="Crimson" Text="{Binding AnswerText}"></Label>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>-->
+            <Frame VerticalOptions="FillAndExpand">
+                <StackLayout>
+                <!--<input:CheckBox Text="{Binding QuestionRetrieved.Answers[0].AnswerText}" IsChecked="False" Type="Material" VerticalOptions="CenterAndExpand" />
+                <input:CheckBox Text="{Binding QuestionRetrieved.Answers[1].AnswerText}" IsChecked="False" Type="Material" VerticalOptions="CenterAndExpand" />
+                <input:CheckBox Text="{Binding QuestionRetrieved.Answers[2].AnswerText}" IsChecked="False" Type="Material" VerticalOptions="CenterAndExpand" />-->
+
+                    <input:RadioButtonGroupView VerticalOptions="FillAndExpand" x:Name="QuestionOptions">
+                        <input:RadioButton ClickCommand="{Binding ChooseAnswerCommand}" Text="{Binding QuestionRetrieved.Answers[0].AnswerText}" IsChecked="False" VerticalOptions="CenterAndExpand" />
+                        <input:RadioButton ClickCommand="{Binding ChooseAnswerCommand}" Text="{Binding QuestionRetrieved.Answers[1].AnswerText}" IsChecked="False" VerticalOptions="CenterAndExpand"/>
+                        <input:RadioButton ClickCommand="{Binding ChooseAnswerCommand}" Text="{Binding QuestionRetrieved.Answers[2].AnswerText}" IsChecked="False" VerticalOptions="CenterAndExpand" />
+                        
+                    </input:RadioButtonGroupView>
+                </StackLayout>
+            </Frame>
+            <Label Text="{Binding Source={x:Reference QuestionOptions}, Path=SelectedIndex}"></Label>
+            <Label Text="{Binding AnswerChosen}"></Label>
+
+        <StackLayout Orientation="Horizontal" >
+                <Button Text="Explain" HorizontalOptions="CenterAndExpand" IsEnabled="{Binding AnswerSubmitted}" >
+                    
+                </Button>
+            <Button Text="Submit" HorizontalOptions="CenterAndExpand" x:Name="SubmitButton" Command="{Binding SubmitAnswerCommand}">
+                    <!--<Button.Triggers>
+                        <DataTrigger TargetType="Button"
+                                     Binding="{Binding Source={x:Reference QuestionOptions},
+                                                                Path=SelectedIndex}"
+                                     Value="-1">
+                            <Setter Property="IsEnabled" Value="False"></Setter>
+
+                        </DataTrigger>
+                    </Button.Triggers>-->
+                </Button>
+                <Button Text="Next" HorizontalOptions="CenterAndExpand" IsEnabled="{Binding AnswerSubmitted}"></Button>
+            </StackLayout>
+        </StackLayout>
+
+    
+
+</ContentPage>
