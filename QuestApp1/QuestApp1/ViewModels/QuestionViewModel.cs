@@ -16,11 +16,43 @@ namespace QuestApp1.ViewModels
         private bool _answerSubmitted = false;
         private Question _questionRetrieved;
         private bool _answerChosen = false;
+        private List<int> _questionsUsed=new List<int>();
 
+        private QuestionService questionService;
+        private int _selectedAnswerIndex = -1;
+        private int _correctAnswerIndex = -1;
+
+
+        public int CorrectAnswerIndex
+        {
+            get => _correctAnswerIndex;
+            set
+            {
+                _correctAnswerIndex = value;
+                OnPropertyChanged();
+            } 
+        }
+
+        public int SelectedAnswerIndex
+        {
+            
+            get => _selectedAnswerIndex;
+            set
+            {
+                _selectedAnswerIndex = value;
+                OnPropertyChanged();
+            } 
+        }
+
+        public List<int> QuestionsUsed
+        {
+            get => _questionsUsed;
+            set => _questionsUsed = value;
+        }
 
         public ICommand SubmitAnswerCommand {private  set; get; }
         public ICommand ChooseAnswerCommand {private set; get; }
-        public ICommand NextQuestionrCommand { private set; get; }
+        public ICommand NextQuestionCommand { private set; get; }
 
         public bool AnswerChosen
         {
@@ -54,42 +86,74 @@ namespace QuestApp1.ViewModels
 
         public QuestionViewModel()
         {
-            QuestionService questionService = new QuestionService();
-            QuestionRetrieved = questionService.GetQuestionById(1);
+            questionService = new QuestionService();
+            QuestionRetrieved = GetNextQuestion();
             //Initialize ICommand Properties
             SubmitAnswerCommand = new Command(
                 () =>
                 {
                     AnswerSubmitted = true;
+                    CheckAnswer();
                     RefreshCanExecutes();
 
                 },
                 () => AnswerChosen && !AnswerSubmitted
                 );
-            ChooseAnswerCommand = new Command(
-                () =>
+            ChooseAnswerCommand = new Command<string>(
+                (chosenAnswerIndex) =>
                 {
                     AnswerChosen = true;
+                    SelectedAnswerIndex = int.Parse(chosenAnswerIndex);
                     RefreshCanExecutes();
                 }
                 );
 
-            NextQuestionrCommand= new Command(
-                () => { RefreshCanExecutes(); },
+            NextQuestionCommand= new Command(
+                () =>
+                {
+                    QuestionRetrieved = GetNextQuestion();
+                    ResetButtons();
+                    RefreshCanExecutes();
+                    
+                },
                 () => AnswerSubmitted
                 );
 
+        }
+
+        private void CheckAnswer()
+        {
+            CorrectAnswerIndex = QuestionRetrieved.Answers.Find((a) => (a.Correctness == true)).Id;
         }
 
         void RefreshCanExecutes()
         {
             ((Command)SubmitAnswerCommand).ChangeCanExecute();
             ((Command)ChooseAnswerCommand).ChangeCanExecute();
-            ((Command)NextQuestionrCommand).ChangeCanExecute();
+            ((Command)NextQuestionCommand).ChangeCanExecute();
 
         }
 
-        
+        void ResetButtons()
+        {
+            CorrectAnswerIndex = -1;
+            SelectedAnswerIndex = -1;
+            AnswerChosen = false;
+            AnswerSubmitted = false;
+        }
+
+        private Question GetNextQuestion()
+        {
+            
+            if (QuestionsUsed.Count==1)
+            {
+                QuestionsUsed.Add(2);
+                return questionService.GetQuestionById(2);
+            }
+            QuestionsUsed.Add(1);
+            return questionService.GetQuestionById(1);
+
+        }
 
         
         public event PropertyChangedEventHandler PropertyChanged;

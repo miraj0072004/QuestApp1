@@ -4,6 +4,14 @@
              x:Class="QuestApp1.Views.QuestionPage"
              xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
              xmlns:ViewModels ="clr-namespace:QuestApp1.ViewModels">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="input:RadioButton">
+                <Setter Property="Color" Value="DeepSkyBlue"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.BindingContext>
         <ViewModels:QuestionViewModel/>
     </ContentPage.BindingContext>
@@ -32,22 +40,68 @@
                 <input:CheckBox Text="{Binding QuestionRetrieved.Answers[1].AnswerText}" IsChecked="False" Type="Material" VerticalOptions="CenterAndExpand" />
                 <input:CheckBox Text="{Binding QuestionRetrieved.Answers[2].AnswerText}" IsChecked="False" Type="Material" VerticalOptions="CenterAndExpand" />-->
 
-                    <input:RadioButtonGroupView VerticalOptions="FillAndExpand" x:Name="QuestionOptions">
-                        <input:RadioButton ClickCommand="{Binding ChooseAnswerCommand}" Text="{Binding QuestionRetrieved.Answers[0].AnswerText}" IsChecked="False" VerticalOptions="CenterAndExpand" />
-                        <input:RadioButton ClickCommand="{Binding ChooseAnswerCommand}" Text="{Binding QuestionRetrieved.Answers[1].AnswerText}" IsChecked="False" VerticalOptions="CenterAndExpand"/>
-                        <input:RadioButton ClickCommand="{Binding ChooseAnswerCommand}" Text="{Binding QuestionRetrieved.Answers[2].AnswerText}" IsChecked="False" VerticalOptions="CenterAndExpand" />
-                        
+                    <input:RadioButtonGroupView SelectedIndex="{Binding SelectedAnswerIndex}"  VerticalOptions="FillAndExpand" x:Name="QuestionOptions">
+                        <input:RadioButton ClickCommand="{Binding ChooseAnswerCommand}" CommandParameter="0" Text="{Binding QuestionRetrieved.Answers[0].AnswerText}" VerticalOptions="CenterAndExpand">
+                            <input:RadioButton.Triggers>
+                                <MultiTrigger TargetType="input:RadioButton">
+                                    <MultiTrigger.Conditions>
+                                        <BindingCondition Binding="{Binding AnswerSubmitted}" Value="True"/>
+                                        <BindingCondition Binding="{Binding SelectedAnswerIndex}" Value="0"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="input:RadioButton.TextColor" Value="Red"></Setter>
+                                    <Setter Property="input:RadioButton.Color" Value="Red"></Setter>
+                                </MultiTrigger>
+
+                                <DataTrigger TargetType="input:RadioButton" Binding="{Binding CorrectAnswerIndex}" Value="1">
+                                    <Setter Property="input:RadioButton.TextColor" Value="ForestGreen"></Setter>
+                                    <Setter Property="input:RadioButton.Color" Value="ForestGreen"></Setter>
+                                </DataTrigger>
+                            </input:RadioButton.Triggers>
+                        </input:RadioButton>
+                        <input:RadioButton ClickCommand="{Binding ChooseAnswerCommand}" CommandParameter="1" Text="{Binding QuestionRetrieved.Answers[1].AnswerText}" VerticalOptions="CenterAndExpand">
+                            <input:RadioButton.Triggers>
+                                <MultiTrigger TargetType="input:RadioButton">
+                                    <MultiTrigger.Conditions>
+                                        <BindingCondition Binding="{Binding AnswerSubmitted}" Value="True"/>
+                                        <BindingCondition Binding="{Binding SelectedAnswerIndex}" Value="1"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="input:RadioButton.TextColor" Value="Red"></Setter>
+                                    <Setter Property="input:RadioButton.Color" Value="Red"></Setter>
+                                </MultiTrigger>
+                                <DataTrigger TargetType="input:RadioButton" Binding="{Binding CorrectAnswerIndex}" Value="2">
+                                    <Setter Property="input:RadioButton.TextColor" Value="ForestGreen"></Setter>
+                                    <Setter Property="input:RadioButton.Color" Value="ForestGreen"></Setter>
+                                </DataTrigger>
+                            </input:RadioButton.Triggers>
+                        </input:RadioButton>
+                        <input:RadioButton ClickCommand="{Binding ChooseAnswerCommand}" CommandParameter="2" Text="{Binding QuestionRetrieved.Answers[2].AnswerText}" VerticalOptions="CenterAndExpand">
+                            <input:RadioButton.Triggers>
+                                <MultiTrigger TargetType="input:RadioButton">
+                                    <MultiTrigger.Conditions>
+                                        <BindingCondition Binding="{Binding AnswerSubmitted}" Value="True"/>
+                                        <BindingCondition Binding="{Binding SelectedAnswerIndex}" Value="2"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="input:RadioButton.TextColor" Value="Red"></Setter>
+                                    <Setter Property="input:RadioButton.Color" Value="Red"></Setter>
+                                </MultiTrigger>
+                                <DataTrigger TargetType="input:RadioButton" Binding="{Binding CorrectAnswerIndex}" Value="3">
+                                    <Setter Property="input:RadioButton.TextColor" Value="ForestGreen"></Setter>
+                                    <Setter Property="input:RadioButton.Color" Value="ForestGreen"></Setter>
+                                </DataTrigger>
+                            </input:RadioButton.Triggers>
+                    </input:RadioButton>
                     </input:RadioButtonGroupView>
                 </StackLayout>
             </Frame>
             <Label Text="{Binding Source={x:Reference QuestionOptions}, Path=SelectedIndex}"></Label>
             <Label Text="{Binding AnswerChosen}"></Label>
+            <Label Text="{Binding SelectedAnswerIndex}"></Label>
 
         <StackLayout Orientation="Horizontal" >
                 <Button Text="Explain" HorizontalOptions="CenterAndExpand" IsEnabled="{Binding AnswerSubmitted}" >
                     
                 </Button>
-            <Button Text="Submit" HorizontalOptions="CenterAndExpand" x:Name="SubmitButton" Command="{Binding SubmitAnswerCommand}">
+                <Button Text="Submit" HorizontalOptions="CenterAndExpand" x:Name="SubmitButton" Command="{Binding SubmitAnswerCommand}">
                     <!--<Button.Triggers>
                         <DataTrigger TargetType="Button"
                                      Binding="{Binding Source={x:Reference QuestionOptions},
@@ -58,7 +112,7 @@
                         </DataTrigger>
                     </Button.Triggers>-->
                 </Button>
-                <Button Text="Next" HorizontalOptions="CenterAndExpand" IsEnabled="{Binding AnswerSubmitted}"></Button>
+                <Button Text="Next" HorizontalOptions="CenterAndExpand" Command="{Binding NextQuestionCommand}"></Button>
             </StackLayout>
         </StackLayout>
 
