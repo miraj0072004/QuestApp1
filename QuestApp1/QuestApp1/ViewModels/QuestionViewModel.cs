@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Input;
 using QuestApp1.Annotations;
 using QuestApp1.Services;
+using QuestApp1.Views;
 using Xamarin.Forms;
 
 namespace QuestApp1.ViewModels
@@ -53,6 +54,8 @@ namespace QuestApp1.ViewModels
         public ICommand SubmitAnswerCommand {private  set; get; }
         public ICommand ChooseAnswerCommand {private set; get; }
         public ICommand NextQuestionCommand { private set; get; }
+        public ICommand ExplanationCommand { private set; get; }
+
 
         public bool AnswerChosen
         {
@@ -119,6 +122,21 @@ namespace QuestApp1.ViewModels
                 () => AnswerSubmitted
                 );
 
+            ExplanationCommand= new Command(
+                () =>
+                {
+                    var explanationPage = new ExplanationPage
+                    {
+                        BindingContext = QuestionRetrieved
+                    };
+                    RefreshCanExecutes();
+                    Application.Current.MainPage.Navigation.PushModalAsync(explanationPage);
+                
+                },
+                () => AnswerSubmitted
+                
+                );
+
         }
 
         private void CheckAnswer()
@@ -131,6 +149,7 @@ namespace QuestApp1.ViewModels
             ((Command)SubmitAnswerCommand).ChangeCanExecute();
             ((Command)ChooseAnswerCommand).ChangeCanExecute();
             ((Command)NextQuestionCommand).ChangeCanExecute();
+            ((Command)ExplanationCommand).ChangeCanExecute();
 
         }
 

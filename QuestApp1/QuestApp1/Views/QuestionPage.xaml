@@ -94,13 +94,11 @@
                 </StackLayout>
             </Frame>
             <Label Text="{Binding Source={x:Reference QuestionOptions}, Path=SelectedIndex}"></Label>
-            <Label Text="{Binding AnswerChosen}"></Label>
+            <Label Text="{Binding AnswerSubmitted}"></Label>
             <Label Text="{Binding SelectedAnswerIndex}"></Label>
 
         <StackLayout Orientation="Horizontal" >
-                <Button Text="Explain" HorizontalOptions="CenterAndExpand" IsEnabled="{Binding AnswerSubmitted}" >
-                    
-                </Button>
+                <Button Text="Explain" HorizontalOptions="CenterAndExpand" Command="{Binding ExplanationCommand}"></Button>
                 <Button Text="Submit" HorizontalOptions="CenterAndExpand" x:Name="SubmitButton" Command="{Binding SubmitAnswerCommand}">
                     <!--<Button.Triggers>
                         <DataTrigger TargetType="Button"
