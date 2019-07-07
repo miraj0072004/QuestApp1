@@ -18,7 +18,10 @@ namespace QuestApp1
 
             //questionViewModel= new QuestionViewModel();
             //MainPage= new QuestionPage(questionViewModel);
-            MainPage = new QuestionPage();
+
+            //MainPage = new QuestionPage();
+
+            MainPage = new NavigationPage(new LandingPage());
         }
 
         protected override void OnStart()
