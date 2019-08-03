@@ -3,27 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using QuestApp1.ViewModels;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace QuestApp1.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class QuestionPage : ContentPage
+    public partial class HomePage : ContentPage
     {
-        public QuestionPage()
+        public HomePage()
         {
             InitializeComponent();
-            
         }
 
-        private void Finish_Button_Clicked(object sender, EventArgs e)
+        private void Play_Clicked(object sender, EventArgs e)
         {
-            if((sender as Button).Text=="Finish")
-            {
-                Navigation.PushAsync(new HomePage());
-            }
+            Navigation.PushAsync(new QuestionPage());
         }
     }
 }

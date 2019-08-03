@@ -9,6 +9,9 @@ using QuestApp1.Annotations;
 using QuestApp1.Services;
 using QuestApp1.Views;
 using Xamarin.Forms;
+using QuestApp1.Helpers;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace QuestApp1.ViewModels
 {
@@ -17,12 +20,15 @@ namespace QuestApp1.ViewModels
         private bool _answerSubmitted = false;
         private Question _questionRetrieved;
         private bool _answerChosen = false;
-        private List<int> _questionsUsed=new List<int>();
+        private HashSet<int> _questionsUsed=new HashSet<int>();
+        private List<int> _allQuestionIds = new List<int>();
 
         private QuestionService questionService;
         private int _selectedAnswerIndex = -1;
         private int _correctAnswerIndex = -1;
-
+        private int totalQuestions=-1;
+        private int attmptedQuestionCount = 0;
+        private bool questionsCompleted = false;
 
         public int CorrectAnswerIndex
         {
@@ -45,11 +51,13 @@ namespace QuestApp1.ViewModels
             } 
         }
 
-        public List<int> QuestionsUsed
+        public HashSet<int> QuestionsUsed
         {
             get => _questionsUsed;
             set => _questionsUsed = value;
         }
+
+        public List<int> AllQuestionIds { get => _allQuestionIds; set => _allQuestionIds = value; }
 
         public ICommand SubmitAnswerCommand {private  set; get; }
         public ICommand ChooseAnswerCommand {private set; get; }
@@ -87,17 +95,45 @@ namespace QuestApp1.ViewModels
             } 
         }
 
+        public int AttmptedQuestionCount
+        {
+            get => attmptedQuestionCount;
+            set
+            {
+                attmptedQuestionCount = value;
+                OnPropertyChanged();
+            }
+                
+        }
+
+        public bool QuestionsCompleted
+        {
+            get => questionsCompleted;
+            set
+            {
+                questionsCompleted = value;
+                OnPropertyChanged();
+            }
+        }
+
         public QuestionViewModel()
         {
             questionService = new QuestionService();
-            QuestionRetrieved = GetNextQuestion();
+            GetNextQuestionAsync();
             //Initialize ICommand Properties
             SubmitAnswerCommand = new Command(
                 () =>
                 {
+                    AttmptedQuestionCount++;
+                    if (AttmptedQuestionCount == totalQuestions)
+                    {
+                        totalQuestions = 0;
+                        QuestionsCompleted = true;
+                    }
                     AnswerSubmitted = true;
                     CheckAnswer();
                     RefreshCanExecutes();
+                    
 
                 },
                 () => AnswerChosen && !AnswerSubmitted
@@ -114,10 +150,15 @@ namespace QuestApp1.ViewModels
             NextQuestionCommand= new Command(
                 () =>
                 {
-                    QuestionRetrieved = GetNextQuestion();
-                    ResetButtons();
-                    RefreshCanExecutes();
+                    //QuestionRetrieved = await GetNextQuestionAsync();
+                    if (!QuestionsCompleted)
+                    {
+                        GetNextQuestionAsync();
+                        ResetButtons();
+                        RefreshCanExecutes();
+                    }
                     
+
                 },
                 () => AnswerSubmitted
                 );
@@ -161,16 +202,44 @@ namespace QuestApp1.ViewModels
             AnswerSubmitted = false;
         }
 
-        private Question GetNextQuestion()
+        private async void GetNextQuestionAsync()
         {
-            
-            if (QuestionsUsed.Count==1)
+            var accessToken = Settings.AccessToken;
+            if (totalQuestions==-1)
             {
-                QuestionsUsed.Add(2);
-                return questionService.GetQuestionById(2);
+                
+                AllQuestionIds = await questionService.GetAllQuestionIds(accessToken);
+                totalQuestions = AllQuestionIds.Count;
             }
-            QuestionsUsed.Add(1);
-            return questionService.GetQuestionById(1);
+            
+            //AllQuestionIds= await questionService.GetAllQuestionIds(accessToken);
+
+            //var range = Enumerable.Range(1, totalQuestions).Where(i => !QuestionsUsed.Contains(i));
+            var range = AllQuestionIds.Where(i => !QuestionsUsed.Contains(i));
+
+            var rand = new System.Random();
+            int index = rand.Next(0, totalQuestions - QuestionsUsed.Count-1);            
+            var questionId = range.ElementAt(index);
+            QuestionsUsed.Add(questionId);
+            QuestionRetrieved = await questionService.GetQuestionById(accessToken, questionId);
+            
+
+
+            //if (QuestionsUsed.Count==1)
+            //{
+            //    QuestionsUsed.Add(2);
+            //    QuestionRetrieved = await questionService.GetQuestionById(accessToken, 2);
+
+            //}
+            //else
+            //{
+            //    QuestionsUsed.Add(1);
+            //    QuestionRetrieved = await questionService.GetQuestionById(accessToken, 1);
+            //}
+
+
+
+            //return await questionService.GetQuestionById(accessToken,1);
 
         }
 

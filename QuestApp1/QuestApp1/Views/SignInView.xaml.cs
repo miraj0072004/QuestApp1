@@ -16,5 +16,13 @@ namespace QuestApp1.Views
         {
             InitializeComponent();
         }
+
+        private void AccessToken_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if ((sender as Entry).Text.Length != 0 )
+            {
+                Navigation.PushAsync(new HomePage());
+            }
+        }
     }
 }

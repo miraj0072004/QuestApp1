@@ -31,11 +31,27 @@ namespace QuestionApi.Controllers
             return db.Questions.Include("Answers");
         }
 
+        [Authorize]
+        [Route("api/Questions/Count")]
+        public IHttpActionResult GetQuestionsCount()
+        {
+            //ICollection<Question> questions = db.Questions.ToArray<Question>();
+
+            //foreach(Question question in questions )
+            //{
+            //    question.Answers = db.Answers.Where(x => x.QuestionId == question.Id);
+            //}
+            var count= db.Questions.Count();
+            return Ok(count);
+        }
+
         // GET: api/Questions/5
         [ResponseType(typeof(Question))]
+        [Authorize]
         public IHttpActionResult GetQuestion(int id)
         {
-            Question question = db.Questions.Find(id);
+            //var question = db.Questions.Find(id);
+            var question = db.Questions.Where(x=>x.Id==id).Include(x=>x.Answers);
             if (question == null)
             {
                 return NotFound();
@@ -125,5 +141,13 @@ namespace QuestionApi.Controllers
         {
             return db.Questions.Count(e => e.Id == id) > 0;
         }
+
+        [Route("api/Questions/All")]
+        public IQueryable<int> GetAllQuestionIds ()
+        {
+            return db.Questions.Select(x=>x.Id);
+        }
+
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using QuestApp1.Annotations;
+using QuestApp1.Helpers;
 using QuestApp1.Services;
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,8 @@ namespace QuestApp1.ViewModels
                         if (isSuccess)
                         {
                             Message = "User Registered Successfully";
+                            Settings.Email = Email;
+                            Settings.Password = Password;
                         }
                         else
                         {

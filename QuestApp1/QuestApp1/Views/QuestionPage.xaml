@@ -110,7 +110,13 @@
                         </DataTrigger>
                     </Button.Triggers>-->
                 </Button>
-                <Button Text="Next" HorizontalOptions="CenterAndExpand" Command="{Binding NextQuestionCommand}"></Button>
+                <Button Text="Next" HorizontalOptions="CenterAndExpand" Command="{Binding NextQuestionCommand}" Clicked="Finish_Button_Clicked">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding QuestionsCompleted}" Value="True">
+                            <Setter Property="Text" Value="Finish"></Setter>                        
+                        </DataTrigger>                    
+                    </Button.Triggers>
+                </Button>
             </StackLayout>
         </StackLayout>
 

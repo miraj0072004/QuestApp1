@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-              xmlns:ViewModels="clr-namespace:QuestApp1.ViewModels"
-             x:Class="QuestApp1.Views.SignInView">
+             xmlns:ViewModels="clr-namespace:QuestApp1.ViewModels"
+             x:Class="QuestApp1.Views.SignInView"             
+             xmlns:local1="clr-namespace:QuestApp1.Infrastructure">
     <ContentPage.BindingContext>
         <ViewModels:SignInViewModel/>
     </ContentPage.BindingContext>
@@ -11,10 +12,36 @@
             <StackLayout VerticalOptions="CenterAndExpand">
                 <Entry Text="{Binding Username}" Placeholder="Username" />
                 <Entry Text="{Binding Password}" Placeholder="Password" IsPassword="True"/>
+                <Entry Text="{Binding AccessToken}" x:Name="accessToken" TextChanged="AccessToken_TextChanged"/>
                 
-                <Button Text="Sign In" Command="{Binding SingInCommand}"/>               
+                <!--<Switch x:Name="tokenSwitch">
+                    <Switch.Triggers>
+                        <DataTrigger TargetType="Switch" Binding="{Binding Source={x:Reference accessToken}, Path = Text.Length}" Value="0">
+                        --><!--<DataTrigger TargetType="Switch" Binding="{Binding Source=AccessToken}" Value="">--><!--
+                            <Setter Property="IsToggled" Value="False"/>
+                        </DataTrigger>
+                    </Switch.Triggers>
+                </Switch>
+                
+
+                <Button Text="Navigate" IsVisible="False">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference tokenSwitch}, Path=IsToggled}" Value="True" >
+                            <DataTrigger.EnterActions>
+                                <local1:NavigateAction/>
+                            </DataTrigger.EnterActions>
+                        </DataTrigger>
+                        
+                    </Button.Triggers> 
+                    
+                </Button>-->
+                
+                <Button Text="Sign In" Command="{Binding SignInCommand}"/>
 
                 
+                
+
+
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
