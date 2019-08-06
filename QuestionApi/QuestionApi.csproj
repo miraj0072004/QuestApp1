@@ -220,6 +220,14 @@
     <Compile Include="Migrations\201907060621211_AddedQuestionReerenceToAnswer.Designer.cs">
       <DependentUpon>201907060621211_AddedQuestionReerenceToAnswer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908061858345_Added sub id to answer.cs" />
+    <Compile Include="Migrations\201908061858345_Added sub id to answer.Designer.cs">
+      <DependentUpon>201908061858345_Added sub id to answer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908061904164_Added Question filteration to answer.cs" />
+    <Compile Include="Migrations\201908061904164_Added Question filteration to answer.Designer.cs">
+      <DependentUpon>201908061904164_Added Question filteration to answer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -326,6 +334,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907060621211_AddedQuestionReerenceToAnswer.resx">
       <DependentUpon>201907060621211_AddedQuestionReerenceToAnswer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908061858345_Added sub id to answer.resx">
+      <DependentUpon>201908061858345_Added sub id to answer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908061904164_Added Question filteration to answer.resx">
+      <DependentUpon>201908061904164_Added Question filteration to answer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

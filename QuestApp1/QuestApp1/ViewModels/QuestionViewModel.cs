@@ -182,7 +182,7 @@ namespace QuestApp1.ViewModels
 
         private void CheckAnswer()
         {
-            CorrectAnswerIndex = QuestionRetrieved.Answers.Find((a) => (a.Correctness == true)).Id;
+            CorrectAnswerIndex = QuestionRetrieved.Answers.Find((a) => (a.Correctness == true)).QuestionAnswerId;
         }
 
         void RefreshCanExecutes()

@@ -94,8 +94,8 @@
                 </StackLayout>
             </Frame>
             <Label Text="{Binding Source={x:Reference QuestionOptions}, Path=SelectedIndex}"></Label>
-            <Label Text="{Binding AnswerSubmitted}"></Label>
             <Label Text="{Binding SelectedAnswerIndex}"></Label>
+            <Label Text="{Binding CorrectAnswerIndex}"></Label>
 
         <StackLayout Orientation="Horizontal" >
                 <Button Text="Explain" HorizontalOptions="CenterAndExpand" Command="{Binding ExplanationCommand}"></Button>
