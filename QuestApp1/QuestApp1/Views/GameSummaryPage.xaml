@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="QuestApp1.Views.GameSummaryPage"
+             >
+
+    <ContentPage.Content>
+        <StackLayout>
+
+            <Label
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand"
+                 FontSize="Large">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Game Over!"/>
+                        <Span Text="{x:Static x:Environment.NewLine}" />
+                        <Span Text="Your Total score is "></Span>
+                        <Span Text="{Binding GameScore}" TextColor="BlueViolet"></Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

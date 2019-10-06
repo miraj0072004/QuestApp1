@@ -10,22 +10,21 @@ using Xamarin.Forms.Xaml;
 namespace QuestApp1.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class QuestionPage : ContentPage
+    public partial class GameSummaryPage : ContentPage
     {
-        public QuestionPage()
+        
+
+        public GameSummaryPage()
         {
             InitializeComponent();
             
         }
 
-        private void Finish_Button_Clicked(object sender, EventArgs e)
+        public GameSummaryPage(QuestionViewModel viewModel)
         {
-
-            if((sender as Button).Text=="Finish")
-            {
-                var viewModel = BindingContext as QuestionViewModel;
-                Navigation.PushAsync(new GameSummaryPage(viewModel));
-            }
+            //throw new NotImplementedException();
+            InitializeComponent();
+            this.BindingContext = viewModel;
         }
     }
 }

@@ -12,8 +12,8 @@ namespace QuestApp1.Services
 {
     class QuestionService
     {
-        //private string questionUrl= "http://10.5.34.88:45455/api/Questions/";
-        private string questionUrl = "http://192.168.1.2:45455/api/Questions/";
+        //private string questionUrl= "http://10.5.42.37:45455/api/Questions/";
+        private string questionUrl = "http://192.168.1.3:45455/api/Questions/";
         private List<Question> Questions = new List<Question> {
                 new Question()
                 {

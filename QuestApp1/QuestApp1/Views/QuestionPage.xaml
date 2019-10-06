@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="QuestApp1.Views.QuestionPage"
              xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
-             xmlns:ViewModels ="clr-namespace:QuestApp1.ViewModels">
+             xmlns:ViewModels ="clr-namespace:QuestApp1.ViewModels"
+             >
     
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -40,13 +41,13 @@
                 <input:CheckBox Text="{Binding QuestionRetrieved.Answers[1].AnswerText}" IsChecked="False" Type="Material" VerticalOptions="CenterAndExpand" />
                 <input:CheckBox Text="{Binding QuestionRetrieved.Answers[2].AnswerText}" IsChecked="False" Type="Material" VerticalOptions="CenterAndExpand" />-->
 
-                    <input:RadioButtonGroupView SelectedIndex="{Binding SelectedAnswerIndex}"  VerticalOptions="FillAndExpand" x:Name="QuestionOptions">
-                        <input:RadioButton ClickCommand="{Binding ChooseAnswerCommand}" CommandParameter="0" Text="{Binding QuestionRetrieved.Answers[0].AnswerText}" VerticalOptions="CenterAndExpand">
+                    <input:RadioButtonGroupView SelectedIndex="{Binding SelectedTopAnswerIndex}"  VerticalOptions="FillAndExpand" x:Name="QuestionOptions">
+                        <input:RadioButton ClickCommand="{Binding ChooseAnswerCommand}" CommandParameter="1" Text="{Binding QuestionRetrieved.Answers[0].AnswerText}" VerticalOptions="CenterAndExpand">
                             <input:RadioButton.Triggers>
                                 <MultiTrigger TargetType="input:RadioButton">
                                     <MultiTrigger.Conditions>
                                         <BindingCondition Binding="{Binding AnswerSubmitted}" Value="True"/>
-                                        <BindingCondition Binding="{Binding SelectedAnswerIndex}" Value="0"/>
+                                        <BindingCondition Binding="{Binding SelectedAnswerIndex}" Value="1"/>
                                     </MultiTrigger.Conditions>
                                     <Setter Property="input:RadioButton.TextColor" Value="Red"></Setter>
                                     <Setter Property="input:RadioButton.Color" Value="Red"></Setter>
@@ -58,12 +59,12 @@
                                 </DataTrigger>
                             </input:RadioButton.Triggers>
                         </input:RadioButton>
-                        <input:RadioButton ClickCommand="{Binding ChooseAnswerCommand}" CommandParameter="1" Text="{Binding QuestionRetrieved.Answers[1].AnswerText}" VerticalOptions="CenterAndExpand">
+                        <input:RadioButton ClickCommand="{Binding ChooseAnswerCommand}" CommandParameter="2" Text="{Binding QuestionRetrieved.Answers[1].AnswerText}" VerticalOptions="CenterAndExpand">
                             <input:RadioButton.Triggers>
                                 <MultiTrigger TargetType="input:RadioButton">
                                     <MultiTrigger.Conditions>
                                         <BindingCondition Binding="{Binding AnswerSubmitted}" Value="True"/>
-                                        <BindingCondition Binding="{Binding SelectedAnswerIndex}" Value="1"/>
+                                        <BindingCondition Binding="{Binding SelectedAnswerIndex}" Value="2"/>
                                     </MultiTrigger.Conditions>
                                     <Setter Property="input:RadioButton.TextColor" Value="Red"></Setter>
                                     <Setter Property="input:RadioButton.Color" Value="Red"></Setter>
@@ -74,12 +75,12 @@
                                 </DataTrigger>
                             </input:RadioButton.Triggers>
                         </input:RadioButton>
-                        <input:RadioButton ClickCommand="{Binding ChooseAnswerCommand}" CommandParameter="2" Text="{Binding QuestionRetrieved.Answers[2].AnswerText}" VerticalOptions="CenterAndExpand">
+                        <input:RadioButton ClickCommand="{Binding ChooseAnswerCommand}" CommandParameter="3" Text="{Binding QuestionRetrieved.Answers[2].AnswerText}" VerticalOptions="CenterAndExpand">
                             <input:RadioButton.Triggers>
                                 <MultiTrigger TargetType="input:RadioButton">
                                     <MultiTrigger.Conditions>
                                         <BindingCondition Binding="{Binding AnswerSubmitted}" Value="True"/>
-                                        <BindingCondition Binding="{Binding SelectedAnswerIndex}" Value="2"/>
+                                        <BindingCondition Binding="{Binding SelectedAnswerIndex}" Value="3"/>
                                     </MultiTrigger.Conditions>
                                     <Setter Property="input:RadioButton.TextColor" Value="Red"></Setter>
                                     <Setter Property="input:RadioButton.Color" Value="Red"></Setter>
@@ -93,9 +94,17 @@
                     </input:RadioButtonGroupView>
                 </StackLayout>
             </Frame>
-            <Label Text="{Binding Source={x:Reference QuestionOptions}, Path=SelectedIndex}"></Label>
+            <!--<Label Text="{Binding Source={x:Reference QuestionOptions}, Path=SelectedIndex}"></Label>-->
             <Label Text="{Binding SelectedAnswerIndex}"></Label>
             <Label Text="{Binding CorrectAnswerIndex}"></Label>
+            <Label x:Name="lblGameScore">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="The Game Score is "></Span>
+                        <Span Text="{Binding GameScore}"></Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
 
         <StackLayout Orientation="Horizontal" >
                 <Button Text="Explain" HorizontalOptions="CenterAndExpand" Command="{Binding ExplanationCommand}"></Button>

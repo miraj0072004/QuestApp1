@@ -25,10 +25,12 @@ namespace QuestApp1.ViewModels
 
         private QuestionService questionService;
         private int _selectedAnswerIndex = -1;
+        private int _selectedTopAnswerIndex = -1;
         private int _correctAnswerIndex = -1;
         private int totalQuestions=-1;
         private int attmptedQuestionCount = 0;
         private bool questionsCompleted = false;
+        private int _gameScore;
 
         public int CorrectAnswerIndex
         {
@@ -116,8 +118,30 @@ namespace QuestApp1.ViewModels
             }
         }
 
+        public int GameScore
+        {
+            get => _gameScore;
+            set
+            {
+                _gameScore = value;
+                OnPropertyChanged();
+
+            }
+        }
+
+        public int SelectedTopAnswerIndex
+        {
+            get => _selectedTopAnswerIndex;
+            set
+            {
+                _selectedTopAnswerIndex = value;
+                OnPropertyChanged();
+            }
+        }
+
         public QuestionViewModel()
         {
+            _gameScore = 0;
             questionService = new QuestionService();
             GetNextQuestionAsync();
             //Initialize ICommand Properties
@@ -143,6 +167,7 @@ namespace QuestApp1.ViewModels
                 {
                     AnswerChosen = true;
                     SelectedAnswerIndex = int.Parse(chosenAnswerIndex);
+                    SelectedTopAnswerIndex = SelectedAnswerIndex - 1;
                     RefreshCanExecutes();
                 }
                 );
@@ -183,6 +208,15 @@ namespace QuestApp1.ViewModels
         private void CheckAnswer()
         {
             CorrectAnswerIndex = QuestionRetrieved.Answers.Find((a) => (a.Correctness == true)).QuestionAnswerId;
+
+            if (CorrectAnswerIndex==SelectedAnswerIndex)
+            {
+                GameScore += 10;
+            }
+            else
+            {
+                GameScore -= 5;
+            }
         }
 
         void RefreshCanExecutes()
@@ -198,6 +232,7 @@ namespace QuestApp1.ViewModels
         {
             CorrectAnswerIndex = -1;
             SelectedAnswerIndex = -1;
+            SelectedTopAnswerIndex = -1;
             AnswerChosen = false;
             AnswerSubmitted = false;
         }

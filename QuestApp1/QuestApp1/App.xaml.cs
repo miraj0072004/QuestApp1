@@ -21,6 +21,11 @@ namespace QuestApp1
 
             //MainPage = new QuestionPage();
 
+            //attempt to attach an application wide view model programmatically
+            //this.Resources= new ResourceDictionary();
+            //var mainViewModel = new QuestionViewModel();
+            //Resources.Add("MainViewModel",mainViewModel);
+
             MainPage = new NavigationPage(new LandingPage());
         }
 

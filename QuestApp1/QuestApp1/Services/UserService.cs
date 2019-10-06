@@ -11,8 +11,8 @@ namespace QuestApp1.Services
 {
     class UserService
     {
-        //private string accessUrl = "http://10.5.34.88:45455/";
-        private string accessUrl = "http://192.168.1.2:45455/";
+        //private string accessUrl = "http://10.5.42.37:45455/";
+        private string accessUrl = "http://192.168.1.3:45455/";
         public async Task<bool> SignUpUser(string email, string password, string confirmPassword)
         {
             var client = new HttpClient();
