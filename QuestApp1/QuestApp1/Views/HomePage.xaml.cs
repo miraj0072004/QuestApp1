@@ -17,9 +17,14 @@ namespace QuestApp1.Views
             InitializeComponent();
         }
 
-        private void Play_Clicked(object sender, EventArgs e)
+        public void Play_Clicked(object sender, EventArgs e)
         {
             Navigation.PushAsync(new QuestionPage());
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
         }
     }
 }

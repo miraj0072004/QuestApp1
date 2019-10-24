@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:QuestApp1.Infrastructure"
-             x:Class="QuestApp1.Views.LandingPage">
+             x:Class="QuestApp1.Views.LandingPage"
+             NavigationPage.HasBackButton="False">
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>

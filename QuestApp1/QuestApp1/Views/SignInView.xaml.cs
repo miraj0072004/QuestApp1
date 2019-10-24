@@ -17,11 +17,18 @@ namespace QuestApp1.Views
             InitializeComponent();
         }
 
-        private void AccessToken_TextChanged(object sender, TextChangedEventArgs e)
+        private async void AccessToken_TextChanged(object sender, TextChangedEventArgs e)
         {
             if ((sender as Entry).Text.Length != 0 )
             {
-                Navigation.PushAsync(new HomePage());
+
+                //Navigation.PushAsync(new HomePage());
+
+                //Navigation.InsertPageBefore(new HomePage(), this);
+                //await Navigation.PopAsync();
+
+                Application.Current.MainPage=new NavigationPage(new HomePage());
+
             }
         }
     }

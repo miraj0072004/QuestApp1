@@ -4,6 +4,7 @@
              x:Class="QuestApp1.Views.QuestionPage"
              xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
              xmlns:ViewModels ="clr-namespace:QuestApp1.ViewModels"
+             NavigationPage.HasBackButton="False"
              >
     
     <ContentPage.Resources>

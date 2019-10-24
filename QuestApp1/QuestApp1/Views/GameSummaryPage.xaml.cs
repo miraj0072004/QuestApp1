@@ -26,5 +26,21 @@ namespace QuestApp1.Views
             InitializeComponent();
             this.BindingContext = viewModel;
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
+
+        private async void ToHome_OnClicked(object sender, EventArgs e)
+        {
+            await Navigation.PopToRootAsync();
+        }
+
+        private async void PlayAgain_OnClicked(object sender, EventArgs e)
+        {
+             await Navigation.PopAsync();
+            
+        }
     }
 }

@@ -25,7 +25,19 @@ namespace QuestApp1.Views
             {
                 var viewModel = BindingContext as QuestionViewModel;
                 Navigation.PushAsync(new GameSummaryPage(viewModel));
+
+                //Navigation.PushAsync(
+                //     new GameSummaryPage
+                //     {
+                //         BindingContext = BindingContext as QuestionViewModel
+                //     }
+                //    );
             }
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
         }
     }
 }

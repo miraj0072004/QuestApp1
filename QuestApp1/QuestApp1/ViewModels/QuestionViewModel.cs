@@ -28,7 +28,7 @@ namespace QuestApp1.ViewModels
         private int _selectedTopAnswerIndex = -1;
         private int _correctAnswerIndex = -1;
         private int totalQuestions=-1;
-        private int attmptedQuestionCount = 0;
+        private int _attemptedQuestionCount = 0;
         private bool questionsCompleted = false;
         private int _gameScore;
 
@@ -66,6 +66,8 @@ namespace QuestApp1.ViewModels
         public ICommand NextQuestionCommand { private set; get; }
         public ICommand ExplanationCommand { private set; get; }
 
+        public ICommand RestartGameCommand { private set; get; }
+
 
         public bool AnswerChosen
         {
@@ -97,12 +99,12 @@ namespace QuestApp1.ViewModels
             } 
         }
 
-        public int AttmptedQuestionCount
+        public int AttemptedQuestionCount
         {
-            get => attmptedQuestionCount;
+            get => _attemptedQuestionCount;
             set
             {
-                attmptedQuestionCount = value;
+                _attemptedQuestionCount = value;
                 OnPropertyChanged();
             }
                 
@@ -148,8 +150,8 @@ namespace QuestApp1.ViewModels
             SubmitAnswerCommand = new Command(
                 () =>
                 {
-                    AttmptedQuestionCount++;
-                    if (AttmptedQuestionCount == totalQuestions)
+                    AttemptedQuestionCount++;
+                    if (AttemptedQuestionCount == totalQuestions)
                     {
                         totalQuestions = 0;
                         QuestionsCompleted = true;
@@ -202,6 +204,8 @@ namespace QuestApp1.ViewModels
                 () => AnswerSubmitted
                 
                 );
+
+            RestartGameCommand= new Command(this.RestartGame);
 
         }
 
@@ -275,6 +279,19 @@ namespace QuestApp1.ViewModels
 
 
             //return await questionService.GetQuestionById(accessToken,1);
+
+        }
+
+        public void RestartGame()
+        {
+            totalQuestions = -1;
+            AllQuestionIds.Clear();
+            QuestionsUsed.Clear();
+            QuestionsCompleted = false;
+            GameScore = 0;
+            AttemptedQuestionCount = 0;
+            ResetButtons();
+            RefreshCanExecutes();
 
         }
 

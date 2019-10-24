@@ -26,5 +26,10 @@ namespace QuestApp1.Views
         {
             Navigation.PushAsync(new SignInView());
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
     }
 }
