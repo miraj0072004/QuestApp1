@@ -24,6 +24,7 @@ namespace QuestApp1.Views
             if((sender as Button).Text=="Finish")
             {
                 var viewModel = BindingContext as QuestionViewModel;
+                
                 Navigation.PushAsync(new GameSummaryPage(viewModel));
 
                 //Navigation.PushAsync(

@@ -332,9 +332,21 @@ namespace QuestionApi.Controllers
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
+            }
+            else
+            {
+                UserPerformancesController userPerformancesController = new UserPerformancesController();
+                UserPerformance userPerformance = new UserPerformance();
+                userPerformance.UserId = user.UserName;
+                userPerformance.CorrectAnswerCount = 0;
+                userPerformance.TotalGamesCount = 0;
+                userPerformance.TotalQuestions = 0;
+                userPerformancesController.PostUserPerformance(userPerformance);
+
             }
 
             return Ok();

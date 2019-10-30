@@ -21,5 +21,7 @@ namespace QuestionApi.Models
 
         public System.Data.Entity.DbSet<QuestionApi.Models.Question> Questions { get; set; }
         public System.Data.Entity.DbSet<QuestionApi.Models.Answer> Answers { get; set; }
+
+        public System.Data.Entity.DbSet<QuestionApi.Models.UserPerformance> UserPerformances { get; set; }
     }
 }

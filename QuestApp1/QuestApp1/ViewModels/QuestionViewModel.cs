@@ -23,14 +23,24 @@ namespace QuestApp1.ViewModels
         private HashSet<int> _questionsUsed=new HashSet<int>();
         private List<int> _allQuestionIds = new List<int>();
 
-        private QuestionService questionService;
+        private readonly QuestionService _questionService;
         private int _selectedAnswerIndex = -1;
         private int _selectedTopAnswerIndex = -1;
         private int _correctAnswerIndex = -1;
-        private int totalQuestions=-1;
+        private int _totalQuestions=-1;
         private int _attemptedQuestionCount = 0;
-        private bool questionsCompleted = false;
+        private bool _questionsCompleted = false;
         private int _gameScore;
+        private int _correctAnswersCount=0;
+
+        private readonly string _accessToken = Settings.AccessToken;
+
+
+        public int CorrectAnswersCount
+        {
+            get => _correctAnswersCount;
+            //set => _correctAnswersCount = value;
+        }
 
         public int CorrectAnswerIndex
         {
@@ -112,10 +122,10 @@ namespace QuestApp1.ViewModels
 
         public bool QuestionsCompleted
         {
-            get => questionsCompleted;
+            get => _questionsCompleted;
             set
             {
-                questionsCompleted = value;
+                _questionsCompleted = value;
                 OnPropertyChanged();
             }
         }
@@ -144,16 +154,16 @@ namespace QuestApp1.ViewModels
         public QuestionViewModel()
         {
             _gameScore = 0;
-            questionService = new QuestionService();
+            _questionService = new QuestionService();
             GetNextQuestionAsync();
             //Initialize ICommand Properties
             SubmitAnswerCommand = new Command(
                 () =>
                 {
                     AttemptedQuestionCount++;
-                    if (AttemptedQuestionCount == totalQuestions)
+                    if (AttemptedQuestionCount == _totalQuestions)
                     {
-                        totalQuestions = 0;
+                        _totalQuestions = 0;
                         QuestionsCompleted = true;
                     }
                     AnswerSubmitted = true;
@@ -174,8 +184,7 @@ namespace QuestApp1.ViewModels
                 }
                 );
 
-            NextQuestionCommand= new Command(
-                () =>
+            NextQuestionCommand= new Command(async () =>
                 {
                     //QuestionRetrieved = await GetNextQuestionAsync();
                     if (!QuestionsCompleted)
@@ -183,6 +192,14 @@ namespace QuestApp1.ViewModels
                         GetNextQuestionAsync();
                         ResetButtons();
                         RefreshCanExecutes();
+                    }
+                    else
+                    {
+                        UserPerformance userPerformance=new UserPerformance();
+                        userPerformance.UserId = Settings.Email;
+                        userPerformance.CorrectAnswerCount = _correctAnswersCount;
+                        userPerformance.TotalQuestions = _attemptedQuestionCount;
+                        await _questionService.SaveUserPerformance(_accessToken,Settings.Email, userPerformance);
                     }
                     
 
@@ -216,6 +233,7 @@ namespace QuestApp1.ViewModels
             if (CorrectAnswerIndex==SelectedAnswerIndex)
             {
                 GameScore += 10;
+                _correctAnswersCount += 1;
             }
             else
             {
@@ -243,12 +261,12 @@ namespace QuestApp1.ViewModels
 
         private async void GetNextQuestionAsync()
         {
-            var accessToken = Settings.AccessToken;
-            if (totalQuestions==-1)
+            //var accessToken = Settings.AccessToken;
+            if (_totalQuestions==-1)
             {
                 
-                AllQuestionIds = await questionService.GetAllQuestionIds(accessToken);
-                totalQuestions = AllQuestionIds.Count;
+                AllQuestionIds = await _questionService.GetAllQuestionIds(_accessToken);
+                _totalQuestions = AllQuestionIds.Count;
             }
             
             //AllQuestionIds= await questionService.GetAllQuestionIds(accessToken);
@@ -257,10 +275,10 @@ namespace QuestApp1.ViewModels
             var range = AllQuestionIds.Where(i => !QuestionsUsed.Contains(i));
 
             var rand = new System.Random();
-            int index = rand.Next(0, totalQuestions - QuestionsUsed.Count-1);            
+            int index = rand.Next(0, _totalQuestions - QuestionsUsed.Count-1);            
             var questionId = range.ElementAt(index);
             QuestionsUsed.Add(questionId);
-            QuestionRetrieved = await questionService.GetQuestionById(accessToken, questionId);
+            QuestionRetrieved = await _questionService.GetQuestionById(_accessToken, questionId);
             
 
 
@@ -284,12 +302,13 @@ namespace QuestApp1.ViewModels
 
         public void RestartGame()
         {
-            totalQuestions = -1;
+            _totalQuestions = -1;
             AllQuestionIds.Clear();
             QuestionsUsed.Clear();
             QuestionsCompleted = false;
             GameScore = 0;
             AttemptedQuestionCount = 0;
+            _correctAnswersCount = 0;
             ResetButtons();
             RefreshCanExecutes();
 

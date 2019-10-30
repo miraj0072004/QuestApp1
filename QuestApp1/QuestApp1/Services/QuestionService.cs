@@ -14,6 +14,7 @@ namespace QuestApp1.Services
     {
         //private string questionUrl= "http://10.5.42.37:45455/api/Questions/";
         private string questionUrl = "http://192.168.1.3:45455/api/Questions/";
+        private string userPerformanceUrl = "http://192.168.1.3:45455/api/UserPerformances/";
         private List<Question> Questions = new List<Question> {
                 new Question()
                 {
@@ -145,6 +146,18 @@ namespace QuestApp1.Services
             string stripped = allIds.Substring(1, allIds.Length - 2);
             List<int> allIdsList = new List<int>(Array.ConvertAll(stripped.Split(','),Int32.Parse));
             return allIdsList;
+        }
+
+        public async Task<bool> SaveUserPerformance(string accessToken,string userName,UserPerformance userPerformance)
+        {
+            var client = new HttpClient();
+            var json = JsonConvert.SerializeObject(userPerformance);
+            HttpContent httpContent=new StringContent(json);
+            httpContent.Headers.ContentType=new MediaTypeHeaderValue("application/json");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            var result = await client.PutAsync(userPerformanceUrl+ "PutMyPerformance", httpContent);
+            return result.IsSuccessStatusCode;
+
         }
 
     }

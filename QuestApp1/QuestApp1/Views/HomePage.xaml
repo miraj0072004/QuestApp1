@@ -4,14 +4,45 @@
              x:Class="QuestApp1.Views.HomePage"
              NavigationPage.HasBackButton="False">
     <ContentPage.Content>
-        <StackLayout>
-            <Button VerticalOptions="CenterAndExpand"
-                    WidthRequest="60"
-                    HeightRequest="60"
+        
+            <Grid VerticalOptions="CenterAndExpand">
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="1" VerticalOptions="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Button
+                        VerticalOptions="Center"
+                        Grid.Row="0"
+                        CornerRadius="30"
+                        BackgroundColor="Green"
+                        Text="Play"
+                        Clicked="Play_Clicked"/>
+
+                    <Button
+                        VerticalOptions="Center"
+                        Grid.Row="1"
+                        CornerRadius="30"
+                        BackgroundColor="CornflowerBlue"
+                        Text="My Stats"/>
+            </Grid>
+
+                
+        </Grid>
+            <!--<Button VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="Center"
                     BorderRadius="30"
                     BackgroundColor="Green"
                     Text="Play"
-                    Clicked="Play_Clicked"/>
-        </StackLayout>
+                    Clicked="Play_Clicked"/>-->
+            
+        
     </ContentPage.Content>
 </ContentPage>

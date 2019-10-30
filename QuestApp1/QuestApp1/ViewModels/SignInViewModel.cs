@@ -39,7 +39,10 @@ namespace QuestApp1.ViewModels
                         {
                             AccessToken = await userService.SignInUser(Username, Password);
                             Settings.AccessToken = AccessToken;
+                            Settings.Email = Username;
                             
+
+
                         }
                     );
             }
