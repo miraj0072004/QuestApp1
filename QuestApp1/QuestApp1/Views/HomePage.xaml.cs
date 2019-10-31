@@ -26,5 +26,10 @@ namespace QuestApp1.Views
         {
             return true;
         }
+
+        private void Stats_OnClicked(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new StatsPage());
+        }
     }
 }

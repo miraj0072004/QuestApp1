@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ViewModels ="clr-namespace:QuestApp1.ViewModels"
+             mc:Ignorable="d"
+             x:Class="QuestApp1.Views.StatsPage">
+    <ContentPage.BindingContext>
+       <ViewModels:StatsViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Your Performance Report" HorizontalOptions="CenterAndExpand" FontSize="Large"/>
+            <Frame Padding="40" BorderColor="Aquamarine" VerticalOptions="FillAndExpand">
+
+                <StackLayout>
+                    <Label VerticalOptions="CenterAndExpand" FontSize="Medium">
+                        <Label.FormattedText>
+                            <FormattedString> 
+                                <Span Text="Total Number of Games : "/>
+                                <Span Text="{Binding MyPerformance.TotalGamesCount}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label VerticalOptions="CenterAndExpand" FontSize="Medium">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Total Number of Questions : "/>
+                                <Span Text="{Binding MyPerformance.TotalQuestions}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Label VerticalOptions="CenterAndExpand" FontSize="Medium">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Correct Answers : "/>
+                                <Span Text="{Binding MyPerformance.CorrectAnswerCount}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Label VerticalOptions="CenterAndExpand" FontSize="Medium">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Accuracy : "/>
+                                <Span Text="{Binding Correctness}"/>
+                                <Span Text="%"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -31,7 +31,8 @@
                         Grid.Row="1"
                         CornerRadius="30"
                         BackgroundColor="CornflowerBlue"
-                        Text="My Stats"/>
+                        Text="My StatsPage"
+                        Clicked="Stats_OnClicked"/>
             </Grid>
 
                 
