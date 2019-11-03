@@ -208,6 +208,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\QuestionsController.cs" />
+    <Compile Include="Controllers\QuestionsMvcController.cs" />
     <Compile Include="Controllers\UserPerformancesController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -232,6 +233,14 @@
     <Compile Include="Migrations\201910280752399_Add User Performance.cs" />
     <Compile Include="Migrations\201910280752399_Add User Performance.Designer.cs">
       <DependentUpon>201910280752399_Add User Performance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911031552387_Removed Auto Incrementation.cs" />
+    <Compile Include="Migrations\201911031552387_Removed Auto Incrementation.Designer.cs">
+      <DependentUpon>201911031552387_Removed Auto Incrementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911031600400_Changes to Auto Incrementation 1.cs" />
+    <Compile Include="Migrations\201911031600400_Changes to Auto Incrementation 1.Designer.cs">
+      <DependentUpon>201911031600400_Changes to Auto Incrementation 1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -301,6 +310,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\QuestionsMvc\Create.cshtml" />
+    <Content Include="Views\QuestionsMvc\Delete.cshtml" />
+    <Content Include="Views\QuestionsMvc\Details.cshtml" />
+    <Content Include="Views\QuestionsMvc\Edit.cshtml" />
+    <Content Include="Views\QuestionsMvc\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -349,6 +363,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910280752399_Add User Performance.resx">
       <DependentUpon>201910280752399_Add User Performance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911031552387_Removed Auto Incrementation.resx">
+      <DependentUpon>201911031552387_Removed Auto Incrementation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911031600400_Changes to Auto Incrementation 1.resx">
+      <DependentUpon>201911031600400_Changes to Auto Incrementation 1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
