@@ -34,6 +34,8 @@ namespace QuestApp1.ViewModels
         private int _correctAnswersCount=0;
 
         private readonly string _accessToken = Settings.AccessToken;
+        private bool _radioEnabled =true;
+        private int _correctAnswer=-1;
 
 
         public int CorrectAnswersCount
@@ -89,12 +91,34 @@ namespace QuestApp1.ViewModels
             }
         }
 
+        public int CorrectAnswer
+        {
+            get => _correctAnswer;
+            set
+            {
+                _correctAnswer = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         public bool AnswerSubmitted
         {
             get => _answerSubmitted;
             set
             {
                 _answerSubmitted = value;
+                RadioEnabled = !value;
+                OnPropertyChanged();
+            } 
+        }
+
+        public bool RadioEnabled
+        {
+            get => _radioEnabled;
+            set
+            {
+                _radioEnabled = value;
                 OnPropertyChanged();
             } 
         }
@@ -232,11 +256,13 @@ namespace QuestApp1.ViewModels
 
             if (CorrectAnswerIndex==SelectedAnswerIndex)
             {
+                CorrectAnswer = 1;
                 GameScore += 10;
                 _correctAnswersCount += 1;
             }
             else
             {
+                CorrectAnswer = 0;
                 GameScore -= 5;
             }
         }
@@ -257,6 +283,7 @@ namespace QuestApp1.ViewModels
             SelectedTopAnswerIndex = -1;
             AnswerChosen = false;
             AnswerSubmitted = false;
+            CorrectAnswer = -1;
         }
 
         private async void GetNextQuestionAsync()

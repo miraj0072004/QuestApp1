@@ -5,6 +5,7 @@
              xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
              xmlns:ViewModels ="clr-namespace:QuestApp1.ViewModels"
              NavigationPage.HasBackButton="False"
+             xmlns:infra="clr-namespace:QuestApp1.Infrastructure"
              >
     
     <ContentPage.Resources>
@@ -36,15 +37,22 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>-->
-            <Frame VerticalOptions="FillAndExpand">
+            
+        <Frame VerticalOptions="FillAndExpand">
                 <StackLayout>
+
+
+
                 <!--<input:CheckBox Text="{Binding QuestionRetrieved.Answers[0].AnswerText}" IsChecked="False" Type="Material" VerticalOptions="CenterAndExpand" />
                 <input:CheckBox Text="{Binding QuestionRetrieved.Answers[1].AnswerText}" IsChecked="False" Type="Material" VerticalOptions="CenterAndExpand" />
                 <input:CheckBox Text="{Binding QuestionRetrieved.Answers[2].AnswerText}" IsChecked="False" Type="Material" VerticalOptions="CenterAndExpand" />-->
 
-                    <input:RadioButtonGroupView SelectedIndex="{Binding SelectedTopAnswerIndex}"  VerticalOptions="FillAndExpand" x:Name="QuestionOptions">
-                        <input:RadioButton ClickCommand="{Binding ChooseAnswerCommand}" CommandParameter="1" Text="{Binding QuestionRetrieved.Answers[0].AnswerText}" VerticalOptions="CenterAndExpand">
-                            <input:RadioButton.Triggers>
+                    <input:RadioButtonGroupView SelectedIndex="{Binding SelectedTopAnswerIndex}"  VerticalOptions="FillAndExpand" x:Name="QuestionOptions" IsEnabled="{Binding RadioEnabled}">
+
+                   
+                    <input:RadioButton ClickCommand="{Binding ChooseAnswerCommand}" CommandParameter="1" Text="{Binding QuestionRetrieved.Answers[0].AnswerText}" VerticalOptions="CenterAndExpand">
+                            
+                        <input:RadioButton.Triggers>
                                 <MultiTrigger TargetType="input:RadioButton">
                                     <MultiTrigger.Conditions>
                                         <BindingCondition Binding="{Binding AnswerSubmitted}" Value="True"/>
@@ -60,7 +68,8 @@
                                 </DataTrigger>
                             </input:RadioButton.Triggers>
                         </input:RadioButton>
-                        <input:RadioButton ClickCommand="{Binding ChooseAnswerCommand}" CommandParameter="2" Text="{Binding QuestionRetrieved.Answers[1].AnswerText}" VerticalOptions="CenterAndExpand">
+                        
+                    <input:RadioButton ClickCommand="{Binding ChooseAnswerCommand}" CommandParameter="2" Text="{Binding QuestionRetrieved.Answers[1].AnswerText}" VerticalOptions="CenterAndExpand">
                             <input:RadioButton.Triggers>
                                 <MultiTrigger TargetType="input:RadioButton">
                                     <MultiTrigger.Conditions>
@@ -91,21 +100,74 @@
                                     <Setter Property="input:RadioButton.Color" Value="ForestGreen"></Setter>
                                 </DataTrigger>
                             </input:RadioButton.Triggers>
-                    </input:RadioButton>
-                    </input:RadioButtonGroupView>
-                </StackLayout>
+                        </input:RadioButton>
+                
+
+                </input:RadioButtonGroupView>
+
+                <!--<Label x:Name="rightAnswerScore" Text="10" FontSize="Large" Scale="0" IsVisible="False" VerticalOptions="Center" HorizontalOptions="Center">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label"  Binding="{Binding CorrectAnswer}" Value="1">
+                            --><!--<Setter Property="IsVisible" Value="True"></Setter>--><!--
+                            <DataTrigger.EnterActions>
+                                <infra:ScoreAction Scale="5" TextColor="LimeGreen"></infra:ScoreAction>
+                            </DataTrigger.EnterActions>
+
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <Label x:Name="wrongAnswerScore" Text="-5" FontSize="Large" Scale="0" IsVisible="False" VerticalOptions="Center" HorizontalOptions="Center">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label"  Binding="{Binding CorrectAnswer}" Value="0">
+                            --><!--<Setter Property="IsVisible" Value="True"></Setter>--><!--
+                            <DataTrigger.EnterActions>
+                                <infra:ScoreAction Scale="5" TextColor="Red"></infra:ScoreAction>
+                            </DataTrigger.EnterActions>
+
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>-->
+            </StackLayout>
             </Frame>
             <!--<Label Text="{Binding Source={x:Reference QuestionOptions}, Path=SelectedIndex}"></Label>-->
-            <Label Text="{Binding SelectedAnswerIndex}"></Label>
+            <!--<Label Text="{Binding SelectedAnswerIndex}"></Label>
             <Label Text="{Binding CorrectAnswerIndex}"></Label>
-            <Label x:Name="lblGameScore">
-                <Label.FormattedText>
-                    <FormattedString>
-                        <Span Text="The Game Score is "></Span>
-                        <Span Text="{Binding GameScore}"></Span>
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
+            <Label Text="{Binding CorrectAnswer}"></Label>-->
+
+            
+
+            <Frame>
+                <StackLayout Orientation="Horizontal">
+                    <!--<Label x:Name="lblGameScore">
+
+
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="The Game Score is "></Span>
+                                <Span Text="{Binding GameScore}"></Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>-->
+
+                    <Label Text="Your total score is  " FontSize="Large"></Label>
+                    <Label Text="{Binding GameScore}" FontSize="Large">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding CorrectAnswer}" Value="1">
+                                <DataTrigger.EnterActions>
+                                    <infra:ScoreAction Scale="2" TextColor="LimeGreen"></infra:ScoreAction>
+                                </DataTrigger.EnterActions>
+                            </DataTrigger>
+
+                            <DataTrigger TargetType="Label" Binding="{Binding CorrectAnswer}" Value="0">
+                                <DataTrigger.EnterActions>
+                                    <infra:ScoreAction Scale="2" TextColor="Red"></infra:ScoreAction>
+                                </DataTrigger.EnterActions>
+                            </DataTrigger>
+                    </Label.Triggers>
+                    </Label>
+            </StackLayout>
+                
+            </Frame>
 
         <StackLayout Orientation="Horizontal" >
                 <Button Text="Explain" HorizontalOptions="CenterAndExpand" Command="{Binding ExplanationCommand}"></Button>
