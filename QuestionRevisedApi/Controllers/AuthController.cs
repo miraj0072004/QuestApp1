@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +19,7 @@ using QuestionRevisedApi.Models;
 
 namespace QuestionRevisedApi.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase

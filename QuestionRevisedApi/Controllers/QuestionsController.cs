@@ -30,6 +30,7 @@ namespace QuestionRevisedApi.Controllers
             return _questionsRepository.GetQuestions();
         }
 
+        [Authorize(Roles = Role.Admin)]
         // GET: api/Questions/5
         [HttpGet("{id}", Name = "Get")]
         public Question Get(int id)

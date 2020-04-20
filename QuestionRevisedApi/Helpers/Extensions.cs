@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using QuestionRevisedApi.Models;
 
 namespace QuestionRevisedApi.Helpers
@@ -21,6 +22,13 @@ namespace QuestionRevisedApi.Helpers
 
             //user.Password = null;
             return user;
+        }
+
+        public static void AddApplicationError(this HttpResponse response, string message)
+        {
+            response.Headers.Add("Application-Error", message);
+            response.Headers.Add("Access-Control-Expose-Headers", "Application-Error");
+            response.Headers.Add("Access-Control-Allow-Origin", "*");
         }
     }
 }
