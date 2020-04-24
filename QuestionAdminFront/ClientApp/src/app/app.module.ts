@@ -15,7 +15,12 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { AuthService } from './_services/auth.service';
 import { AlertifyService } from './_services/alertify.service';
-import { QuestionsComponent } from './questions/questions.component';
+import { QuestionsComponent } from './question-stuff/questions/questions.component';
+import { QuestionService } from './_services/question.service';
+import { QuestionsResolver } from './_resolvers/questions.resolver';
+import { QuestionItemComponent } from './question-stuff/question-item/question-item.component';
+import { QuestionDetailComponent } from './question-stuff/question-detail/question-detail.component';
+import { QuestionDetailResolver } from './_resolvers/question-detail.resolver';
 
 export function tokenGetter(){
   return localStorage.getItem('token');
@@ -28,7 +33,9 @@ export function tokenGetter(){
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    QuestionsComponent
+    QuestionsComponent,
+    QuestionItemComponent,
+    QuestionDetailComponent 
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -40,7 +47,8 @@ export function tokenGetter(){
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'questions', component: QuestionsComponent },
+      { path: 'questions', component: QuestionsComponent, resolve : {questions: QuestionsResolver} },
+      { path: 'questions/:id', component: QuestionDetailComponent, resolve : {question: QuestionDetailResolver} },
     ]),
     JwtModule.forRoot(
       {
@@ -54,7 +62,10 @@ export function tokenGetter(){
   ],
   providers: [
     AuthService,
-    AlertifyService
+    AlertifyService,
+    QuestionService,
+    QuestionsResolver,
+    QuestionDetailResolver
   ],
   bootstrap: [AppComponent]
 })

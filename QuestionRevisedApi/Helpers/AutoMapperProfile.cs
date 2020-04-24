@@ -14,6 +14,8 @@ namespace QuestionRevisedApi.Helpers
         {
             CreateMap<User,UserForClientDto>();
             CreateMap<UserForRegisterDto, User>();
+            CreateMap<Question, QuestionForListDto>();
+            CreateMap<Question, QuestionForDetailDto>();
         }
     }
 }

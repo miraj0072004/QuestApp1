@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuestionRevisedApi.Data;
+using QuestionRevisedApi.Dtos;
 using QuestionRevisedApi.Models;
 
 namespace QuestionRevisedApi.Controllers
@@ -17,25 +19,34 @@ namespace QuestionRevisedApi.Controllers
     {
         private IQuestionsRepository _questionsRepository;
 
+        private readonly IMapper _mapper;
 
-        public QuestionsController(IQuestionsRepository questionsRepository)
+        public QuestionsController(IQuestionsRepository questionsRepository,
+                                    IMapper mapper)
         {
-            _questionsRepository = questionsRepository; 
+            _mapper = mapper;
+            _questionsRepository = questionsRepository;
         }
 
         // GET: api/Questions
         [HttpGet]
-        public IEnumerable<Question> Get()
+        public IActionResult GetQuestions()
         {
-            return _questionsRepository.GetQuestions();
+            var questionsFromRepo = _questionsRepository.GetQuestions();
+            var questions = _mapper.Map<IEnumerable<QuestionForListDto>>(questionsFromRepo);
+
+            return Ok(questions);
+
         }
 
         [Authorize(Roles = Role.Admin)]
         // GET: api/Questions/5
         [HttpGet("{id}", Name = "Get")]
-        public Question Get(int id)
+        public IActionResult GetQuestion(int id)
         {
-            return _questionsRepository.GetQuestion(id);
+            var questionFromRepo = _questionsRepository.GetQuestion(id);
+            var question = _mapper.Map<QuestionForDetailDto>(questionFromRepo);
+            return Ok(question);
         }
 
         // POST: api/Questions

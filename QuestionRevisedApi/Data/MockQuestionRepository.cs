@@ -54,7 +54,7 @@ namespace QuestionRevisedApi.Data
         }
         public List<Question> GetQuestions()
         {
-            return _questions;
+            return  _questions;
         }
 
         public Question GetQuestion(int id)

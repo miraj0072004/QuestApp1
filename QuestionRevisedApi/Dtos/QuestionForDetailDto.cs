@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace QuestionRevisedApi.Models
+namespace QuestionRevisedApi.Dtos
 {
-    public class Question
+    public class QuestionForDetailDto
     {
         public int Id { get; set; }
         public string QuestionText { get; set; }
