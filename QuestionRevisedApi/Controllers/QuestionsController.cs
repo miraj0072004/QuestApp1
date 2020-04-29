@@ -30,7 +30,7 @@ namespace QuestionRevisedApi.Controllers
 
         // GET: api/Questions
         [HttpGet]
-        public IActionResult GetQuestions()
+        public async Task<IActionResult> GetQuestions()
         {
             var questionsFromRepo = _questionsRepository.GetQuestions();
             var questions = _mapper.Map<IEnumerable<QuestionForListDto>>(questionsFromRepo);
@@ -42,23 +42,40 @@ namespace QuestionRevisedApi.Controllers
         [Authorize(Roles = Role.Admin)]
         // GET: api/Questions/5
         [HttpGet("{id}", Name = "Get")]
-        public IActionResult GetQuestion(int id)
+        public async Task<IActionResult> GetQuestion(int id)
         {
-            var questionFromRepo = _questionsRepository.GetQuestion(id);
+            var questionFromRepo =_questionsRepository.GetQuestion(id);
             var question = _mapper.Map<QuestionForDetailDto>(questionFromRepo);
             return Ok(question);
         }
 
         // POST: api/Questions
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] QuestionCreateDto questionCreateDto)
         {
+            var question = _mapper.Map<Question>(questionCreateDto);
+            _questionsRepository.CreateQuestion(question);
+
+            return Ok();
         }
 
         // PUT: api/Questions/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put(int id, [FromBody] QuestionUpdateDto questionUpdateDto)
         {
+            var questionFromRepo = _questionsRepository.GetQuestion(id);
+
+            if(questionFromRepo == null)
+            {
+                return BadRequest("The question doesn't exist");
+            }
+
+            
+            questionUpdateDto.Id = id;
+            questionFromRepo = _mapper.Map<Question>(questionUpdateDto);
+            _questionsRepository.UpdateQuestion(questionFromRepo);
+
+            return Ok(questionFromRepo);
         }
 
         // DELETE: api/ApiWithActions/5

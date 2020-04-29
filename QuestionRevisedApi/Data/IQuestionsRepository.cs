@@ -8,7 +8,11 @@ namespace QuestionRevisedApi.Data
 {
     public interface IQuestionsRepository
     {
-        public List<Question> GetQuestions();
+        public IEnumerable<Question> GetQuestions();
         public Question GetQuestion(int id);
+
+        public Question UpdateQuestion(Question updateQuestion);
+
+        public Question CreateQuestion(Question newQuestion);
     }
 }

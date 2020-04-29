@@ -52,7 +52,7 @@ namespace QuestionRevisedApi.Data
 
 
         }
-        public List<Question> GetQuestions()
+        public IEnumerable<Question> GetQuestions()
         {
             return  _questions;
         }
@@ -60,6 +60,33 @@ namespace QuestionRevisedApi.Data
         public Question GetQuestion(int id)
         {
             return _questions.Find(x => x.Id == id);
+        }
+
+        public Question UpdateQuestion(Question updateQuestion)
+        {
+            var question = _questions.Find(q => q.Id == updateQuestion.Id);
+
+            if (question != null)
+            {
+                question.QuestionCategory = updateQuestion.QuestionCategory;
+                question.QuestionText = updateQuestion.QuestionText;
+                question.AnswerOne = updateQuestion.AnswerOne;
+                question.AnswerTwo = updateQuestion.AnswerTwo;
+                question.AnswerThree = updateQuestion.AnswerThree;                
+                question.AnswerExplanation = question.AnswerExplanation;
+                question.CorrectAnswerIndex = updateQuestion.CorrectAnswerIndex;
+            }
+
+            return question;
+        }
+
+        public Question CreateQuestion(Question newQuestion)
+        {
+            var id = _questions.Max(q => q.Id);
+             newQuestion.Id = id+1;   
+            _questions.Add(newQuestion);
+
+            return newQuestion;
         }
     }
 }

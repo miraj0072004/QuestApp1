@@ -21,6 +21,7 @@ import { QuestionsResolver } from './_resolvers/questions.resolver';
 import { QuestionItemComponent } from './question-stuff/question-item/question-item.component';
 import { QuestionDetailComponent } from './question-stuff/question-detail/question-detail.component';
 import { QuestionDetailResolver } from './_resolvers/question-detail.resolver';
+import { QuestionEditComponent } from './question-stuff/question-edit/question-edit.component';
 
 export function tokenGetter(){
   return localStorage.getItem('token');
@@ -35,7 +36,8 @@ export function tokenGetter(){
     FetchDataComponent,
     QuestionsComponent,
     QuestionItemComponent,
-    QuestionDetailComponent 
+    QuestionDetailComponent,
+    QuestionEditComponent  
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -49,6 +51,7 @@ export function tokenGetter(){
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'questions', component: QuestionsComponent, resolve : {questions: QuestionsResolver} },
       { path: 'questions/:id', component: QuestionDetailComponent, resolve : {question: QuestionDetailResolver} },
+      { path: 'questions/edit/:id', component: QuestionEditComponent, resolve : {question: QuestionDetailResolver} },
     ]),
     JwtModule.forRoot(
       {

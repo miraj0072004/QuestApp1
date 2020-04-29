@@ -42,7 +42,7 @@ namespace QuestionRevisedApi
             
             services.AddAutoMapper(typeof(AuthRepository));
 
-            services.AddScoped<IQuestionsRepository, MockQuestionRepository>();
+            services.AddSingleton<IQuestionsRepository, MockQuestionRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
 
             // configure strongly typed settings objects
