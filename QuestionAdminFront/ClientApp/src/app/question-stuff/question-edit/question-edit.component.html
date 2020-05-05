@@ -1,3 +1,53 @@
-<p>
-  question-edit works!
-</p>
+<h2>Edit Question</h2>
+
+<form id="questionEditForm" #questionEditForm='ngForm' (ngSubmit)='updateQuestion()'>
+  
+  
+  
+  <textarea #questionText = 'ngModel' name="questionText" required placeholder="Question" name="questionText" rows="3" [(ngModel)]="question.questionText" class="form-control"></textarea>
+  <span class="help-block" *ngIf="!questionText.valid && questionText.touched">Please enter a question</span>
+  <br>
+  
+
+  <h4>Answer Options</h4>
+
+  <div class="form-group row"> 
+    <div class="col-sm-11">
+      <input #answerOne='ngModel' name="answerOne" required placeholder="Answer One" [(ngModel)]="question.answerOne"  type="text"  class="form-control">
+      <span class="help-block" *ngIf="!answerOne.valid && answerOne.touched">Please enter a valid first answer option</span>
+    </div>   
+     
+    <div class="col-sm-1">
+      <input  type="checkbox" name="answerOneCheck" (change)="onCheck($event)" [(ngModel)]="checkOne" class="form-control" id="answerOneCheck">
+    </div>          
+  </div>
+
+  <div class="form-group row">
+    <div class="col-sm-11">
+      <input #answerTwo='ngModel' name="answerTwo" required placeholder="Answer Two" type="text" [(ngModel)]="question.answerTwo" class="form-control">
+      <span class="help-block" *ngIf="!answerTwo.valid && answerTwo.touched">Please enter a valid second answer option</span>
+    </div>
+
+    <div class="col sm-1">
+      <input type="checkbox" name="answerTwoCheck" (change)="onCheck($event)" [(ngModel)]="checkTwo" class="form-control" id="answerTwoCheck">
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-11">
+      <input #answerThree='ngModel' name="answerThree" required placeholder="Answer Three" type="text" [(ngModel)]="question.answerThree" class="form-control">
+      <span class="help-block" *ngIf="!answerThree.valid && answerThree.touched">Please enter a valid third answer option</span>
+    </div>
+
+    <div class="col sm-1">
+      <input type="checkbox" name="answerThreeCheck" (change)="onCheck($event)" [(ngModel)]="checkThree" class="form-control" id="answerThreeCheck">
+    </div>
+  </div>
+
+  <h4>Answer Explanation</h4>
+  <textarea #answerExplanation='ngModel' placeholder="Explanation" required name="answerExplanation" rows="6" [(ngModel)]="question.answerExplanation" class="form-control"></textarea>
+  <span class="help-block" *ngIf="!answerExplanation.valid && answerExplanation.touched">Please enter am answer explanation</span>
+  <br>
+
+  <button type="submit" [disabled]="!questionEditForm.valid" class="btn btn-success">Save Changes</button>
+
+</form>

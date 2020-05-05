@@ -73,7 +73,7 @@ namespace QuestionRevisedApi.Data
                 question.AnswerOne = updateQuestion.AnswerOne;
                 question.AnswerTwo = updateQuestion.AnswerTwo;
                 question.AnswerThree = updateQuestion.AnswerThree;                
-                question.AnswerExplanation = question.AnswerExplanation;
+                question.AnswerExplanation = updateQuestion.AnswerExplanation;
                 question.CorrectAnswerIndex = updateQuestion.CorrectAnswerIndex;
             }
 

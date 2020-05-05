@@ -22,6 +22,7 @@ import { QuestionItemComponent } from './question-stuff/question-item/question-i
 import { QuestionDetailComponent } from './question-stuff/question-detail/question-detail.component';
 import { QuestionDetailResolver } from './_resolvers/question-detail.resolver';
 import { QuestionEditComponent } from './question-stuff/question-edit/question-edit.component';
+import { QuestionEditResolver } from './_resolvers/question-edit.resolver';
 
 export function tokenGetter(){
   return localStorage.getItem('token');
@@ -48,10 +49,11 @@ export function tokenGetter(){
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'questions', component: QuestionsComponent, resolve : {questions: QuestionsResolver} },
+      { path: 'fetch-data', component: FetchDataComponent },      
       { path: 'questions/:id', component: QuestionDetailComponent, resolve : {question: QuestionDetailResolver} },
-      { path: 'questions/edit/:id', component: QuestionEditComponent, resolve : {question: QuestionDetailResolver} },
+      { path: 'questions/edit/:id', component: QuestionEditComponent, resolve : {question: QuestionEditResolver} },
+      { path: 'questions/new', component: QuestionEditComponent },
+      { path: 'questions', component: QuestionsComponent, resolve : {questions: QuestionsResolver} },
     ]),
     JwtModule.forRoot(
       {
@@ -68,7 +70,8 @@ export function tokenGetter(){
     AlertifyService,
     QuestionService,
     QuestionsResolver,
-    QuestionDetailResolver
+    QuestionDetailResolver,
+    QuestionEditResolver
   ],
   bootstrap: [AppComponent]
 })
