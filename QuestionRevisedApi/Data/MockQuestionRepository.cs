@@ -88,5 +88,15 @@ namespace QuestionRevisedApi.Data
 
             return newQuestion;
         }
+
+        public Question DeleteQuestion(int id)
+        {
+            var questionToDelete = _questions.Find(x => x.Id==id);
+
+            if (questionToDelete != null)
+                _questions.Remove(questionToDelete);
+
+            return questionToDelete;    
+        }
     }
 }

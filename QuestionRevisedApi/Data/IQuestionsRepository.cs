@@ -14,5 +14,8 @@ namespace QuestionRevisedApi.Data
         public Question UpdateQuestion(Question updateQuestion);
 
         public Question CreateQuestion(Question newQuestion);
+
+        public Question DeleteQuestion(int id);
+        
     }
 }

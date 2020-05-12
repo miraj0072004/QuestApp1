@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 
+
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
@@ -23,6 +24,7 @@ import { QuestionDetailComponent } from './question-stuff/question-detail/questi
 import { QuestionDetailResolver } from './_resolvers/question-detail.resolver';
 import { QuestionEditComponent } from './question-stuff/question-edit/question-edit.component';
 import { QuestionEditResolver } from './_resolvers/question-edit.resolver';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 export function tokenGetter(){
   return localStorage.getItem('token');
@@ -45,14 +47,14 @@ export function tokenGetter(){
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    BsDropdownModule.forRoot(),
+    BsDropdownModule.forRoot(),    
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },      
+      { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'questions/new', component: QuestionEditComponent },
       { path: 'questions/:id', component: QuestionDetailComponent, resolve : {question: QuestionDetailResolver} },
       { path: 'questions/edit/:id', component: QuestionEditComponent, resolve : {question: QuestionEditResolver} },
-      { path: 'questions/new', component: QuestionEditComponent },
       { path: 'questions', component: QuestionsComponent, resolve : {questions: QuestionsResolver} },
     ]),
     JwtModule.forRoot(
@@ -60,10 +62,12 @@ export function tokenGetter(){
          config: {
             tokenGetter,
             whitelistedDomains: ['localhost:5000'],
-            blacklistedRoutes: ['localhost:5000/api/auth']
+            blacklistedRoutes: ['localhost:5000/api/auth'],
+            
          }
       }
-   )
+   ),
+    ModalModule.forRoot()
   ],
   providers: [
     AuthService,

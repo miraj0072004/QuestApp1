@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Question } from 'src/app/_models/question';
 import { QuestionService } from 'src/app/_services/question.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-question-edit',
@@ -11,26 +11,30 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class QuestionEditComponent implements OnInit {
 
-  question: Question = {
-    id: -1,
-    questionCategory : '',
-    questionText : '',
-    answerOne : '',
-    answerTwo : '',
-    answerThree : '',
-    answerExplanation : '',
-    correctAnswerIndex : 2
-  }  ;
+  question: Question;
+  savedQuestion: Question;
 
   checkOne:boolean = false;
   checkTwo:boolean = false;
   checkThree:boolean = false;
   constructor(private questionService: QuestionService, private alertify: AlertifyService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
 
-    if (this.route.params['id'] != '') {
+    this.question = {
+      id: -1,
+      questionCategory : '',
+      questionText : '',
+      answerOne : '',
+      answerTwo : '',
+      answerThree : '',
+      answerExplanation : '',
+      correctAnswerIndex : 2
+    }  ;
+
+    const id = this.route.snapshot.params['id'];
+    if (id != null) {
       this.route.data.subscribe(data=>{
         this.question = data['question'];
       });
@@ -65,7 +69,9 @@ export class QuestionEditComponent implements OnInit {
     this.questionService.saveQuestion(this.question).subscribe(
       next =>
       {
+        this.savedQuestion = <Question>next;
         this.alertify.success('question updated successfully');
+        this.router.navigate(['/questions', this.savedQuestion.id]);
       },
       error =>
       {

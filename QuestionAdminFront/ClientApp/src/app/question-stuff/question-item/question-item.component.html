@@ -1,10 +1,19 @@
 <div class="card">
   <div class="card-body">
     <div class="row">
-      <p class="card-text col-sm-9">{{question.questionText}}</p>
+      <p class="card-text col-sm-8">{{question.questionText}}</p>
       <a [routerLink]="['edit',question.id]" class="btn btn-primary col-sm-1 mr-1">Edit</a>
-      <a [routerLink]="question.id" class="btn btn-primary col-sm-1">Details</a>
+      <a [routerLink]="question.id" class="btn btn-primary col-sm-1 mr-1">Details</a>
+      <button class="btn btn-danger"  (click)="openModal(template)">Delete</button>
     </div>       
   </div>
+
+  <ng-template #template>
+    <div class="modal-body text-center">
+      <p>Do you confirm the deletion?</p>
+      <button type="button" class="btn btn-danger mr-1" (click)="sendDelete(question.id)" >Yes</button>
+      <button type="button" class="btn btn-default" (click)="sendCancel($event)" >No</button>
+    </div>
+  </ng-template>
 </div>
 

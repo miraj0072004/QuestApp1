@@ -54,9 +54,10 @@ namespace QuestionRevisedApi.Controllers
         public async Task<IActionResult> Post([FromBody] QuestionCreateDto questionCreateDto)
         {
             var question = _mapper.Map<Question>(questionCreateDto);
-            _questionsRepository.CreateQuestion(question);
+            var createdQuestion = _questionsRepository.CreateQuestion(question);
+            var questionToReturn = _mapper.Map<QuestionForDetailDto>(createdQuestion);
 
-            return Ok();
+            return Ok(questionToReturn);
         }
 
         // PUT: api/Questions/5
@@ -73,15 +74,28 @@ namespace QuestionRevisedApi.Controllers
             
             questionUpdateDto.Id = id;
             questionFromRepo = _mapper.Map<Question>(questionUpdateDto);
-            _questionsRepository.UpdateQuestion(questionFromRepo);
+            var updatedQuestion =_questionsRepository.UpdateQuestion(questionFromRepo);
+            var questionToReturn = _mapper.Map<QuestionForDetailDto>(updatedQuestion);
 
-            return Ok(questionFromRepo);
+            return Ok(questionToReturn);
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            var deletedQuestion = _questionsRepository.DeleteQuestion(id);
+
+            if(deletedQuestion == null)
+            {
+                return BadRequest("The question doesn't exist");
+            }
+
+            var questionToReturn = _mapper.Map<QuestionForDetailDto>(deletedQuestion);
+
+            return Ok(questionToReturn);
+
+
         }
     }
 }

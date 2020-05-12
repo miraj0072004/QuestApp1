@@ -33,7 +33,11 @@ saveQuestion(question: Question)
   {
     return this.http.put(this.baseUrl+question.id, question);
   }
+}
 
+deleteQuestion(questionId: number)
+{
+  return this.http.delete(this.baseUrl+questionId);
 }
 
 }
