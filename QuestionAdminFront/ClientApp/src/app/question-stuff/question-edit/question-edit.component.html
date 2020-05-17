@@ -48,6 +48,7 @@
   <span class="help-block" *ngIf="!answerExplanation.valid && answerExplanation.touched">Please enter am answer explanation</span>
   <br>
 
-  <button type="submit" [disabled]="!questionEditForm.valid" class="btn btn-success">Save Changes</button>
+  <button type="submit" [disabled]="!questionEditForm.valid" class="btn btn-success mr-1">Save Changes</button>
+  <a type="button" routerLink = "/questions" class="btn btn-danger">Cancel</a>
 
 </form>

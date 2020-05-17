@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using QuestionRevisedApi.Helpers;
 using QuestionRevisedApi.Models;
 
 namespace QuestionRevisedApi.Data
@@ -46,15 +47,60 @@ namespace QuestionRevisedApi.Data
                     AnswerExplanation = "He was crucified in A.D 33",
                     CorrectAnswerIndex = 3
 
+                },
+                 new Question
+                {
+                    Id = 4,
+                    QuestionText = "What is my name?",
+                    AnswerOne = "Nadia",
+                    AnswerTwo = "Rizna",
+                    AnswerThree = "Miraj",
+                    AnswerExplanation = "My name is Miraj",
+                    CorrectAnswerIndex = 3
+
+                },
+                 new Question
+                {
+                    Id = 5,
+                    QuestionText = "What year did the Spanish flu break out?",
+                    AnswerOne = "2020",
+                    AnswerTwo = "1919",
+                    AnswerThree = "1984",
+                    AnswerExplanation = "The Spanish flu broke out in 1919",
+                    CorrectAnswerIndex = 2
+
+                },
+                 new Question
+                {
+                    Id = 6,
+                    QuestionText = "Who is the first female president?",
+                    AnswerOne = "Chandrika Bandaranayaka",
+                    AnswerTwo = "Margaret Thatcher",
+                    AnswerThree = "Sonia Gandhi",
+                    AnswerExplanation = "Chandrika Bandaranayaka of Sri Lanka was the first female to be a president",
+                    CorrectAnswerIndex = 1
+
+                },
+                 new Question
+                {
+                    Id = 7,
+                    QuestionText = "Who betrayed Jesus?",
+                    AnswerOne = "Paul",
+                    AnswerTwo = "Judas",
+                    AnswerThree = "Mohamed",
+                    AnswerExplanation = "Judas betrayed Jesus for thirty silver coins",
+                    CorrectAnswerIndex = 2
+
                 }
             };
 
 
 
         }
-        public IEnumerable<Question> GetQuestions()
+        public async Task<PagedList<Question>> GetQuestions(UserParams userParams)
         {
-            return  _questions;
+            //var questions = _questions.AsQueryable();
+            return await  PagedList<Question>.CreateAsync(_questions, userParams.PageNumber, userParams.PageSize);
         }
 
         public Question GetQuestion(int id)

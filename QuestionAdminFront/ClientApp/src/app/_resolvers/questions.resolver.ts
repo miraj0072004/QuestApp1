@@ -12,12 +12,16 @@ export class QuestionsResolver implements Resolve<Question[]>
     /**
      *
      */
+
+    pageNumber = 1;
+    pageSize = 3; 
+
     constructor(private questionService: QuestionService, private router: Router, private alertify: AlertifyService) {
 
     }
 
     resolve(route: ActivatedRouteSnapshot): Observable<Question[]> {
-        return this.questionService.getQuestions().pipe(
+        return this.questionService.getQuestions(this.pageNumber, this.pageSize).pipe(
             catchError(error => {
                     this.alertify.error("Problem retrieving data");
                     this.router.navigate(['/']);

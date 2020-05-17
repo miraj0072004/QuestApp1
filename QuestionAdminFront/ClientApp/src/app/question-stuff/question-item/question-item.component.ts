@@ -37,13 +37,15 @@ export class QuestionItemComponent implements OnInit {
       {
         
         this.alertify.success('question deleted successfully');
-        this.router.navigate(['/questions']);
+        this.questionService.changeHandle();
       },
       error =>
       {
         this.alertify.error(error);
         
       });
+
+    //this.questionService.deleteQuestion(questionId);
   }
 
   sendCancel(event: any)

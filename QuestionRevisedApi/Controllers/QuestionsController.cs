@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuestionRevisedApi.Data;
 using QuestionRevisedApi.Dtos;
+using QuestionRevisedApi.Helpers;
 using QuestionRevisedApi.Models;
 
 namespace QuestionRevisedApi.Controllers
@@ -30,12 +31,14 @@ namespace QuestionRevisedApi.Controllers
 
         // GET: api/Questions
         [HttpGet]
-        public async Task<IActionResult> GetQuestions()
+        public async Task<IActionResult> GetQuestions([FromQuery]UserParams userParams)
         {
-            var questionsFromRepo = _questionsRepository.GetQuestions();
-            var questions = _mapper.Map<IEnumerable<QuestionForListDto>>(questionsFromRepo);
+            var questionsFromRepo = await _questionsRepository.GetQuestions(userParams);
+            var questionsToReturn = _mapper.Map<IEnumerable<QuestionForListDto>>(questionsFromRepo);
 
-            return Ok(questions);
+            Response.AddPagination(questionsFromRepo.CurrentPage,questionsFromRepo.PageSize,
+                                   questionsFromRepo.TotalCount,questionsFromRepo.TotalPages);
+            return Ok(questionsToReturn);
 
         }
 

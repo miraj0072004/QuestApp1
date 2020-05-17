@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 
 
@@ -25,6 +26,7 @@ import { QuestionDetailResolver } from './_resolvers/question-detail.resolver';
 import { QuestionEditComponent } from './question-stuff/question-edit/question-edit.component';
 import { QuestionEditResolver } from './_resolvers/question-edit.resolver';
 import { ModalModule } from 'ngx-bootstrap/modal';
+
 
 export function tokenGetter(){
   return localStorage.getItem('token');
@@ -67,7 +69,8 @@ export function tokenGetter(){
          }
       }
    ),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    PaginationModule.forRoot()
   ],
   providers: [
     AuthService,
