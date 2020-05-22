@@ -1,12 +1,21 @@
 <div class="row">
+  
+  <div class="col-4 mb-2">
+    <form method="get" #f="ngForm" (ngSubmit)="loadQuestions()">
+      <div class="input-group">
+          <input class="form-control" name="serachTerm" [(ngModel)]="searchTerm"/>
+          <div class="input-group-append">
+              <button class="btn btn-primary" type="submit">Search</button>              
+          </div>
+          <button class="btn btn-success ml-1" type="button" (click)="clearSearchForm()" >Clear</button>
+      </div>
+    </form>
+  </div>
+  
+
   <div *ngFor="let question of questions" class="col-12 mb-2">
     <app-question-item [question]="question"></app-question-item>
-  </div>
-
-  
-
-
-  
+  </div>  
 </div>
 
 <div class="d-flex justify-content-center">

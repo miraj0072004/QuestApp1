@@ -100,8 +100,16 @@ namespace QuestionRevisedApi.Data
         public async Task<PagedList<Question>> GetQuestions(UserParams userParams)
         {
             //var questions = _questions.AsQueryable();
+
+            if (!string.IsNullOrEmpty(userParams.SearchTerm))
+            {
+                var filteredQuestions = _questions.Where(q => q.QuestionText.ToLower()
+                                                  .Contains(userParams.SearchTerm.ToLower())).ToList();
+                return await  PagedList<Question>.CreateAsync(filteredQuestions, userParams.PageNumber, userParams.PageSize);
+            }
+
             return await  PagedList<Question>.CreateAsync(_questions, userParams.PageNumber, userParams.PageSize);
-        }
+        } 
 
         public Question GetQuestion(int id)
         {

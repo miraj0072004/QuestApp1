@@ -12,13 +12,16 @@ import { map } from 'rxjs/operators';
 })
 export class QuestionService {
 
-questionsChanged = new Subject<Question[]>();
+questionsChanged = new Subject<PaginatedResult<Question[]>>();
 baseUrl = environment.apiUrl+'questions/';
-questionsAfterChange: Question[];
+questionsAfterChange: PaginatedResult<Question[]> = new PaginatedResult<Question[]>();
+
+lastPageNumber = 1;
+lastPageSize = 3;
 
 constructor(private http: HttpClient, private alertify: AlertifyService) { }
 
-getQuestions(page?, itemsPerPage?):Observable<PaginatedResult<Question[]>>
+getQuestions(page?, itemsPerPage?, searchTerm?):Observable<PaginatedResult<Question[]>>
 {
   const paginatedResult: PaginatedResult<Question[]> = new PaginatedResult<Question[]>();
   let params = new HttpParams();
@@ -27,6 +30,12 @@ getQuestions(page?, itemsPerPage?):Observable<PaginatedResult<Question[]>>
   {
     params = params.append('pageNumber', page);
     params = params.append('pageSize', itemsPerPage);
+    this.lastPageNumber = page;
+    this.lastPageSize = itemsPerPage;
+  }
+
+  if (searchTerm != null) {
+    params = params.append('searchTerm', searchTerm);
   }
   return this.http.get<Question[]>(this.baseUrl, {observe: 'response', params}).
   pipe(
@@ -71,11 +80,12 @@ deleteQuestion(questionId: number)
 
 changeHandle()
 {
-  this.getQuestions().subscribe(
-    next =>
+  this.getQuestions(this.lastPageNumber, this.lastPageSize).subscribe(
+    (next: PaginatedResult<Question[]>) =>
     {
-      this.questionsAfterChange = <Question[]><unknown>next.result;
-      this.questionsChanged.next(this.questionsAfterChange.slice());
+      this.questionsAfterChange.result = <Question[]>next.result;
+      this.questionsAfterChange.pagination = next.pagination;
+      this.questionsChanged.next(this.questionsAfterChange);
     }
   );
   

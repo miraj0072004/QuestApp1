@@ -14,6 +14,7 @@ export class QuestionsComponent implements OnInit {
 
   questions: Question[];
   pagination: Pagination;
+  searchTerm: any = null;
 
   constructor(private questionService: QuestionService, private alertifyService: AlertifyService,private route: ActivatedRoute) { }
 
@@ -24,9 +25,11 @@ export class QuestionsComponent implements OnInit {
     });
 
     this.questionService.questionsChanged.subscribe(
-      (questionsAfterChange: Question[])=>
+      (questionsAfterChange: PaginatedResult<Question[]>)=>
       {
-        this.questions = questionsAfterChange;
+        this.questions = questionsAfterChange.result;
+        this.pagination = questionsAfterChange.pagination;
+        //this.loadQuestions();
       }
     );
   }
@@ -36,10 +39,16 @@ export class QuestionsComponent implements OnInit {
     this.loadQuestions();
   }
 
+  clearSearchForm()
+  {
+    this.searchTerm = null;
+    this.loadQuestions();
+  }
+
 
   loadQuestions()
   {
-    this.questionService.getQuestions(this.pagination.currentPage, this.pagination.itemsPerPage)
+    this.questionService.getQuestions(this.pagination.currentPage, this.pagination.itemsPerPage, this.searchTerm)
     .subscribe((res: PaginatedResult<Question[]>)=>
     {
       this.questions = res.result;

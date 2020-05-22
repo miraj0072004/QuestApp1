@@ -27,6 +27,11 @@ namespace QuestionRevisedApi.Helpers
          int pageNumber, int pageSize)
          {
              var count = source.Count();
+            if ((pageNumber-1) * pageSize >= count)
+            {
+                pageNumber -= 1; 
+            }
+
              var items = source.Skip((pageNumber-1)*pageSize).Take(pageSize).ToList();
              return new PagedList<T> (items, count, pageNumber, pageSize);
          }
