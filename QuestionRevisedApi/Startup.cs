@@ -42,7 +42,8 @@ namespace QuestionRevisedApi
             
             services.AddAutoMapper(typeof(AuthRepository));
 
-            services.AddSingleton<IQuestionsRepository, MockQuestionRepository>();
+            // services.AddSingleton<IQuestionsRepository, MockQuestionRepository>();
+            services.AddScoped<IQuestionsRepository, SqlQuestionRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
 
             // configure strongly typed settings objects

@@ -111,12 +111,13 @@ namespace QuestionRevisedApi.Data
             return await  PagedList<Question>.CreateAsync(_questions, userParams.PageNumber, userParams.PageSize);
         } 
 
-        public Question GetQuestion(int id)
+        public async Task<Question> GetQuestion(int id)
         {
-            return _questions.Find(x => x.Id == id);
+            var question =  _questions.Find(x => x.Id == id);
+            return question;
         }
 
-        public Question UpdateQuestion(Question updateQuestion)
+        public async Task<Question> UpdateQuestion(Question updateQuestion)
         {
             var question = _questions.Find(q => q.Id == updateQuestion.Id);
 
@@ -134,7 +135,7 @@ namespace QuestionRevisedApi.Data
             return question;
         }
 
-        public Question CreateQuestion(Question newQuestion)
+        public async Task<Question> CreateQuestion(Question newQuestion)
         {
             var id = _questions.Max(q => q.Id);
              newQuestion.Id = id+1;   
@@ -143,14 +144,15 @@ namespace QuestionRevisedApi.Data
             return newQuestion;
         }
 
-        public Question DeleteQuestion(int id)
+        public async Task<Question> DeleteQuestion(int id)
         {
             var questionToDelete = _questions.Find(x => x.Id==id);
-
+            
             if (questionToDelete != null)
                 _questions.Remove(questionToDelete);
 
-            return questionToDelete;    
+            return questionToDelete; 
+               
         }
     }
 }

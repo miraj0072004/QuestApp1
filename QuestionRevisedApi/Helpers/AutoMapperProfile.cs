@@ -18,6 +18,8 @@ namespace QuestionRevisedApi.Helpers
             CreateMap<Question, QuestionForDetailDto>();
             CreateMap<QuestionCreateDto, Question>();
             CreateMap<QuestionUpdateDto, Question>();
+            CreateMap<Question, Question>();
+
         }
     }
 }

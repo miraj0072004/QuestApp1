@@ -47,7 +47,7 @@ namespace QuestionRevisedApi.Controllers
         [HttpGet("{id}", Name = "Get")]
         public async Task<IActionResult> GetQuestion(int id)
         {
-            var questionFromRepo =_questionsRepository.GetQuestion(id);
+            var questionFromRepo =await _questionsRepository.GetQuestion(id);
             var question = _mapper.Map<QuestionForDetailDto>(questionFromRepo);
             return Ok(question);
         }
@@ -57,9 +57,9 @@ namespace QuestionRevisedApi.Controllers
         public async Task<IActionResult> Post([FromBody] QuestionCreateDto questionCreateDto)
         {
             var question = _mapper.Map<Question>(questionCreateDto);
-            var createdQuestion = _questionsRepository.CreateQuestion(question);
+            var createdQuestion =await  _questionsRepository.CreateQuestion(question);
             var questionToReturn = _mapper.Map<QuestionForDetailDto>(createdQuestion);
-
+                
             return Ok(questionToReturn);
         }
 
@@ -67,7 +67,7 @@ namespace QuestionRevisedApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] QuestionUpdateDto questionUpdateDto)
         {
-            var questionFromRepo = _questionsRepository.GetQuestion(id);
+            var questionFromRepo = await _questionsRepository.GetQuestion(id);
 
             if(questionFromRepo == null)
             {
@@ -77,7 +77,7 @@ namespace QuestionRevisedApi.Controllers
             
             questionUpdateDto.Id = id;
             questionFromRepo = _mapper.Map<Question>(questionUpdateDto);
-            var updatedQuestion =_questionsRepository.UpdateQuestion(questionFromRepo);
+            var updatedQuestion =await _questionsRepository.UpdateQuestion(questionFromRepo);
             var questionToReturn = _mapper.Map<QuestionForDetailDto>(updatedQuestion);
 
             return Ok(questionToReturn);
@@ -87,7 +87,7 @@ namespace QuestionRevisedApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var deletedQuestion = _questionsRepository.DeleteQuestion(id);
+            var deletedQuestion =await _questionsRepository.DeleteQuestion(id);
 
             if(deletedQuestion == null)
             {
