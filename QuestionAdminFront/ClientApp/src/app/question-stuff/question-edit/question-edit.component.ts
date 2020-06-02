@@ -37,6 +37,20 @@ export class QuestionEditComponent implements OnInit {
     if (id != null) {
       this.route.data.subscribe(data=>{
         this.question = data['question'];
+
+        switch (this.question.correctAnswerIndex) {
+          case 1:
+            this.checkOne = true;
+            break;
+          case 2:
+            this.checkTwo = true;
+            break;
+          case 3:
+            this.checkThree = true;
+            break;
+          default:
+            break;
+        }
       });
     }
     
@@ -47,18 +61,24 @@ export class QuestionEditComponent implements OnInit {
     //console.log('The check box you clicked is '+ e.currentTarget.name + ' and is in state ' + e.currentTarget.checked);
     if (e.currentTarget.name == 'answerOneCheck') {
       if (e.currentTarget.checked == true) {
+        this.question.correctAnswerIndex = 1;
+        this.checkOne = true;
         this.checkTwo = this.checkThree = false;
       }
     }
 
     if (e.currentTarget.name == 'answerTwoCheck') {
       if (e.currentTarget.checked == true) {
+        this.question.correctAnswerIndex = 2;
+        this.checkTwo = true;
         this.checkOne = this.checkThree = false;
       }
     }
 
     if (e.currentTarget.name == 'answerThreeCheck') {
       if (e.currentTarget.checked == true) {
+        this.question.correctAnswerIndex = 3;
+        this.checkThree = true;
         this.checkTwo = this.checkOne = false;
       }
     }

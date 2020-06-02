@@ -26,6 +26,7 @@ import { QuestionDetailResolver } from './_resolvers/question-detail.resolver';
 import { QuestionEditComponent } from './question-stuff/question-edit/question-edit.component';
 import { QuestionEditResolver } from './_resolvers/question-edit.resolver';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { AuthGuard } from './_guards/auth.guard';
 
 
 export function tokenGetter(){
@@ -49,15 +50,24 @@ export function tokenGetter(){
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    BsDropdownModule.forRoot(),    
+    BsDropdownModule.forRoot(),
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'questions/new', component: QuestionEditComponent },
-      { path: 'questions/:id', component: QuestionDetailComponent, resolve : {question: QuestionDetailResolver} },
-      { path: 'questions/edit/:id', component: QuestionEditComponent, resolve : {question: QuestionEditResolver} },
-      { path: 'questions', component: QuestionsComponent, resolve : {questions: QuestionsResolver} },
+      { path: '', component: HomeComponent},
+
+      {
+        path: '',
+        runGuardsAndResolvers: 'always',
+        canActivate: [AuthGuard],
+        children:
+            [ { path: 'counter', component: CounterComponent },
+              { path: 'fetch-data', component: FetchDataComponent },
+              { path: 'questions/new', component: QuestionEditComponent },
+              { path: 'questions/:id', component: QuestionDetailComponent, resolve : {question: QuestionDetailResolver} },
+              { path: 'questions/edit/:id', component: QuestionEditComponent, resolve : {question: QuestionEditResolver} },
+              { path: 'questions', component: QuestionsComponent, resolve : {questions: QuestionsResolver} }
+            ]
+    },
+    { path: '**', redirectTo: '', pathMatch: 'full'}
     ]),
     JwtModule.forRoot(
       {
