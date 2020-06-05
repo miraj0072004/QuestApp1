@@ -37,7 +37,8 @@ namespace QuestApp1.ViewModels
                     (
                        async ()=>
                         {
-                            AccessToken = await userService.SignInUser(Username, Password);
+                            //AccessToken = await userService.SignInUser(Username, Password);
+                            AccessToken = await userService.Login(Username, Password);
                             Settings.AccessToken = AccessToken;
                             Settings.Email = Username;
                             
@@ -50,8 +51,11 @@ namespace QuestApp1.ViewModels
 
         public SignInViewModel()
         {
-            Username = Settings.Email.Length==0?"miraj0072004@gmail.com": Settings.Email;
-            Password = Settings.Password.Length==0?"Shahrukh0072004$":Settings.Password;
+            //Username = Settings.Email.Length==0?"miraj0072004@gmail.com": Settings.Email;
+            //Password = Settings.Password.Length==0?"Shahrukh0072004$":Settings.Password;
+
+            Username = Settings.Email.Length == 0 ? "miraj0072004" : Settings.Email;
+            Password = Settings.Password.Length == 0 ? "shahrukh0072004" : Settings.Password;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

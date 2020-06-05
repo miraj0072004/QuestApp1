@@ -1,9 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using QuestApp1.Models;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 
@@ -12,7 +14,8 @@ namespace QuestApp1.Services
     class UserService
     {
         //private string accessUrl = "http://10.5.42.37:45455/";
-        private string accessUrl = "http://192.168.1.2:45455/";
+        //private string accessUrl = "http://192.168.1.2:45455/";
+        private string accessUrl = "http://localhost:5000/api/";
         public async Task<bool> SignUpUser(string email, string password, string confirmPassword)
         {
             var client = new HttpClient();
@@ -59,11 +62,36 @@ namespace QuestApp1.Services
             Debug.WriteLine(await response.Content.ReadAsStringAsync());
 
             return accessToken;
+        }
+
+        public async Task<string> Login(string username, string password)
+        {
+           
 
             
+            //var request = new HttpRequestMessage(HttpMethod.Post, accessUrl + "auth/login");
+            //request.Content = new FormUrlEncodedContent(keyValues);
 
+            var client = new HttpClient();
+            //var response = await client.SendAsync(request);
 
+            var loginUser = new User();
+            loginUser.Username = username;
+            loginUser.Password = password;
 
+            var json = JsonConvert.SerializeObject(loginUser);
+            var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync(new Uri(accessUrl + "auth/login"), stringContent);
+
+            var jwt = await response.Content.ReadAsStringAsync();
+            JObject jwtDynamic = JsonConvert.DeserializeObject<dynamic>(jwt);
+
+            var accessToken = jwtDynamic.Value<string>("token");
+
+            Debug.WriteLine(await response.Content.ReadAsStringAsync());
+
+            return accessToken;
         }
     }
 }
