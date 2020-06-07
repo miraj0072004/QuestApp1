@@ -17,6 +17,8 @@ namespace QuestionRevisedApi.Data
         public Task<Question> CreateQuestion(Question newQuestion);
 
         public Task<Question> DeleteQuestion(int id);
+
+        public Task<List<int>> GetQuestionIds();
         
     }
 }

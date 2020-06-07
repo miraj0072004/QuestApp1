@@ -154,5 +154,10 @@ namespace QuestionRevisedApi.Data
             return questionToDelete; 
                
         }
+
+        public Task<List<int>> GetQuestionIds()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

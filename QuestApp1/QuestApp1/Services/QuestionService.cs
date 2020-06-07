@@ -13,7 +13,7 @@ namespace QuestApp1.Services
     class QuestionService
     {
         //private string questionUrl= "http://10.5.42.37:45455/api/Questions/";
-        private string questionUrl = "http://192.168.1.2:45455/api/Questions/";
+        private string questionUrl = App.accessUrl+ "Questions/";
         private string userPerformanceUrl = "http://192.168.1.2:45455/api/UserPerformances/";
         private List<Question> Questions = new List<Question> {
                 new Question()
@@ -74,7 +74,7 @@ namespace QuestApp1.Services
                 }
             };
 
-        public async Task<Question> GetQuestionById(string accessToken,int id)
+        public async Task<QuestionRevised> GetQuestionById(string accessToken,int id)
         //=> new Question()
         //{
         //    Id = 1,
@@ -108,7 +108,8 @@ namespace QuestApp1.Services
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",accessToken);
             var json = await client.GetStringAsync(questionUrl + id);
-            Question question = JsonConvert.DeserializeObject<Question>(json.Substring(1,json.Length-2));
+            //QuestionRevised question = JsonConvert.DeserializeObject<QuestionRevised>(json.Substring(1,json.Length-2));
+            QuestionRevised question = JsonConvert.DeserializeObject<QuestionRevised>(json);
             //var question = JsonConvert.DeserializeObject(json);
             return question;
         }
@@ -134,9 +135,10 @@ namespace QuestApp1.Services
         {
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            var allQuestions = await client.GetStringAsync(questionUrl + "All");
-
-            return GetListFromString(allQuestions);
+            //var allQuestions = await client.GetStringAsync(questionUrl + "All");
+            var allQuestionIds = JsonConvert.DeserializeObject<List<int>>(await client.GetStringAsync(questionUrl + "ids"));
+            //return GetListFromString(allQuestions);
+            return allQuestionIds;
 
         }
 

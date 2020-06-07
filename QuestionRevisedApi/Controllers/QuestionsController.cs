@@ -42,6 +42,15 @@ namespace QuestionRevisedApi.Controllers
 
         }
 
+        [HttpGet("ids")]
+        public async Task<IActionResult> GetQuestionIds()
+        {
+            var questionsIds = await _questionsRepository.GetQuestionIds();
+            
+            return Ok(questionsIds);
+
+        }
+
         [Authorize(Roles = Role.Admin)]
         // GET: api/Questions/5
         [HttpGet("{id}", Name = "Get")]
@@ -97,8 +106,8 @@ namespace QuestionRevisedApi.Controllers
             var questionToReturn = _mapper.Map<QuestionForDetailDto>(deletedQuestion);
 
             return Ok(questionToReturn);
-
-
         }
+
+
     }
 }

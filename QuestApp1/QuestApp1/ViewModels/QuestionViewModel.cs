@@ -18,7 +18,7 @@ namespace QuestApp1.ViewModels
     public class QuestionViewModel :INotifyPropertyChanged
     {
         private bool _answerSubmitted = false;
-        private Question _questionRetrieved;
+        private QuestionRevised _questionRetrieved;
         private bool _answerChosen = false;
         private HashSet<int> _questionsUsed=new HashSet<int>();
         private List<int> _allQuestionIds = new List<int>();
@@ -123,7 +123,7 @@ namespace QuestApp1.ViewModels
             } 
         }
 
-        public Question QuestionRetrieved
+        public QuestionRevised QuestionRetrieved
         {
             get => _questionRetrieved;
             set
@@ -179,7 +179,7 @@ namespace QuestApp1.ViewModels
         {
             _gameScore = 0;
             _questionService = new QuestionService();
-            GetNextQuestionAsync();
+             GetNextQuestionAsync();
             //Initialize ICommand Properties
             SubmitAnswerCommand = new Command(
                 () =>
@@ -252,7 +252,8 @@ namespace QuestApp1.ViewModels
 
         private void CheckAnswer()
         {
-            CorrectAnswerIndex = QuestionRetrieved.Answers.Find((a) => (a.Correctness == true)).QuestionAnswerId;
+            //CorrectAnswerIndex = QuestionRetrieved.Answers.Find((a) => (a.Correctness == true)).QuestionAnswerId;
+            CorrectAnswerIndex = QuestionRetrieved.CorrectAnswerIndex;
 
             if (CorrectAnswerIndex==SelectedAnswerIndex)
             {

@@ -6,7 +6,7 @@
     <ContentPage.Content>
         <ScrollView>
             <Frame>
-                <Label Text="{Binding AnswerDescription}"
+                <Label Text="{Binding AnswerExplanation}"
                     VerticalOptions="CenterAndExpand" 
                     HorizontalOptions="CenterAndExpand" />
             </Frame>

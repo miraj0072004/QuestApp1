@@ -47,10 +47,10 @@
                 <input:CheckBox Text="{Binding QuestionRetrieved.Answers[1].AnswerText}" IsChecked="False" Type="Material" VerticalOptions="CenterAndExpand" />
                 <input:CheckBox Text="{Binding QuestionRetrieved.Answers[2].AnswerText}" IsChecked="False" Type="Material" VerticalOptions="CenterAndExpand" />-->
 
-                    <input:RadioButtonGroupView SelectedIndex="{Binding SelectedTopAnswerIndex}"  VerticalOptions="FillAndExpand" x:Name="QuestionOptions" IsEnabled="{Binding RadioEnabled}">
+                <input:RadioButtonGroupView SelectedIndex="{Binding SelectedTopAnswerIndex}"  VerticalOptions="FillAndExpand" x:Name="QuestionOptions" IsEnabled="{Binding RadioEnabled}">
 
                    
-                    <input:RadioButton ClickCommand="{Binding ChooseAnswerCommand}" CommandParameter="1" Text="{Binding QuestionRetrieved.Answers[0].AnswerText}" VerticalOptions="CenterAndExpand">
+                    <input:RadioButton ClickCommand="{Binding ChooseAnswerCommand}" CommandParameter="1" Text="{Binding QuestionRetrieved.AnswerOne}" VerticalOptions="CenterAndExpand">
                             
                         <input:RadioButton.Triggers>
                                 <MultiTrigger TargetType="input:RadioButton">
@@ -69,7 +69,7 @@
                             </input:RadioButton.Triggers>
                         </input:RadioButton>
                         
-                    <input:RadioButton ClickCommand="{Binding ChooseAnswerCommand}" CommandParameter="2" Text="{Binding QuestionRetrieved.Answers[1].AnswerText}" VerticalOptions="CenterAndExpand">
+                    <input:RadioButton ClickCommand="{Binding ChooseAnswerCommand}" CommandParameter="2" Text="{Binding QuestionRetrieved.AnswerTwo}" VerticalOptions="CenterAndExpand">
                             <input:RadioButton.Triggers>
                                 <MultiTrigger TargetType="input:RadioButton">
                                     <MultiTrigger.Conditions>
@@ -85,7 +85,7 @@
                                 </DataTrigger>
                             </input:RadioButton.Triggers>
                         </input:RadioButton>
-                        <input:RadioButton ClickCommand="{Binding ChooseAnswerCommand}" CommandParameter="3" Text="{Binding QuestionRetrieved.Answers[2].AnswerText}" VerticalOptions="CenterAndExpand">
+                        <input:RadioButton ClickCommand="{Binding ChooseAnswerCommand}" CommandParameter="3" Text="{Binding QuestionRetrieved.AnswerThree}" VerticalOptions="CenterAndExpand">
                             <input:RadioButton.Triggers>
                                 <MultiTrigger TargetType="input:RadioButton">
                                     <MultiTrigger.Conditions>

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -41,6 +42,11 @@ namespace QuestionRevisedApi.Data
         public async Task<Question> GetQuestion(int id)
         {
             return await _questionsRevisedContext.Questions.FindAsync(id);
+        }
+
+        public async Task<List<int>> GetQuestionIds()
+        {
+            return _questionsRevisedContext.Questions.Select(q => q.Id).ToList();
         }
 
         public async Task<PagedList<Question>> GetQuestions(UserParams userParams)
