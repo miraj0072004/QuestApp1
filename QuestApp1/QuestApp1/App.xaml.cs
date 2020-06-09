@@ -10,7 +10,8 @@ namespace QuestApp1
     public partial class App : Application
     {
         //private QuestionViewModel questionViewModel;
-        public static string accessUrl = "http://localhost:5000/api/";
+        //public static string accessUrl = "http://localhost:5000/api/";
+        public static string accessUrl = "http://192.168.43.182:45457/api/";
         public App()
         {
             InitializeComponent();

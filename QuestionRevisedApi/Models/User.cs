@@ -15,5 +15,8 @@ namespace QuestionRevisedApi.Models
         public byte[] PasswordSalt { get; set; }
         public string Role { get; set; }
         public string Token { get; set; }
+        public int TotalQuestions { get; set; }
+        public int CorrectAnswerCount { get; set; }
+        public int TotalGamesCount { get; set; }
     }
 }
