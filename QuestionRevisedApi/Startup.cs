@@ -45,6 +45,7 @@ namespace QuestionRevisedApi
             // services.AddSingleton<IQuestionsRepository, MockQuestionRepository>();
             services.AddScoped<IQuestionsRepository, SqlQuestionRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IUsersRepository, UsersRepository>();
 
             // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");

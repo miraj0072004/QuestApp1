@@ -20,6 +20,10 @@ namespace QuestionRevisedApi.Helpers
             CreateMap<QuestionUpdateDto, Question>();
             CreateMap<Question, Question>();
 
+            CreateMap<User,User>();
+            CreateMap<UserToUpdateDto,User>();
+            CreateMap<UserStatsToUpdateDto,User>();
+
         }
     }
 }

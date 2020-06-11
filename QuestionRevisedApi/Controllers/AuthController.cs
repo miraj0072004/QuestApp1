@@ -94,7 +94,7 @@ namespace QuestionRevisedApi.Controllers
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            userFromRepo.Token = tokenHandler.WriteToken(token);
+            //userFromRepo.Token = tokenHandler.WriteToken(token);
             var user = _mapper.Map<UserForClientDto>(userFromRepo);
 
             return Ok(new

@@ -42,9 +42,29 @@ namespace QuestionRevisedApi.Data
             return await PagedList<User>.CreateAsync(_questionsRevisedContext.Users.ToList(), userParams.PageNumber, userParams.PageSize);
         }
 
-        public Task<User> UpdateUser(User updatedUser)
+        public async Task<User> UpdateStats(User userWithStatsUpdated)
         {
-            throw new System.NotImplementedException();
+            var user = await _questionsRevisedContext.Users.FindAsync(userWithStatsUpdated.Id);
+
+            user.TotalQuestions = userWithStatsUpdated.TotalQuestions;
+            user.CorrectAnswerCount = userWithStatsUpdated.CorrectAnswerCount;
+            user.TotalGamesCount += 1;
+
+            await _questionsRevisedContext.SaveChangesAsync();
+
+            return user;
+        }
+
+        public async Task<User> UpdateUser(User updatedUser)
+        {
+            var userToUpdate = await _questionsRevisedContext.Users.FindAsync(updatedUser.Id);
+
+            _mapper.Map(updatedUser,userToUpdate);
+            
+            // question.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            await _questionsRevisedContext.SaveChangesAsync();
+
+            return userToUpdate;
         }
     }
 }

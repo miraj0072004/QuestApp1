@@ -10,5 +10,7 @@ namespace QuestionRevisedApi.Data
         Task<User> GetUser(int userId);
         Task<User> UpdateUser(User updatedUser);
         Task<User> DeleteUser(int userId);
+
+        Task<User> UpdateStats(User userWithStatsUpdated);
     }
 }
