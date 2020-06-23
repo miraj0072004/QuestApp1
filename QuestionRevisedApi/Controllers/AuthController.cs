@@ -100,7 +100,7 @@ namespace QuestionRevisedApi.Controllers
             return Ok(new
             {
                 token = tokenHandler.WriteToken(token),
-                user
+                user = user.Id
             });
         }
 

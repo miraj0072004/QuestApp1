@@ -78,14 +78,17 @@ namespace QuestionRevisedApi.Controllers
                 return BadRequest("The user doesn't exist");
             }
 
-            
+
             //questionUpdateDto.Id = id;
+
             var userToUpdate = _mapper.Map<User>(userStatsToUpdate);
             userToUpdate.Id = id;
-            var updatedUser =await _repo.UpdateStats(userToUpdate);
+            userToUpdate.TotalGamesCount += 1;
+            var updatedUser = await _repo.UpdateStats(userToUpdate);
             var userToReturn = _mapper.Map<UserForClientDto>(updatedUser);
 
             return Ok(userToReturn);
+
         }
 
 

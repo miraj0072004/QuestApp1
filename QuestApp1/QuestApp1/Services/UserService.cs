@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using QuestApp1.Helpers;
 
 
 namespace QuestApp1.Services
@@ -88,6 +89,9 @@ namespace QuestApp1.Services
             JObject jwtDynamic = JsonConvert.DeserializeObject<dynamic>(jwt);
 
             var accessToken = jwtDynamic.Value<string>("token");
+            var userId = jwtDynamic.Value<string>("user");
+
+            Settings.LoggedInUserId = userId;
 
             Debug.WriteLine(await response.Content.ReadAsStringAsync());
 

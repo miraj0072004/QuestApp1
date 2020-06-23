@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using QuestApp1.Helpers;
 using QuestApp1.Models;
 using Xamarin.Forms;
 
@@ -160,6 +161,23 @@ namespace QuestApp1.Services
             var result = await client.PutAsync(userPerformanceUrl+ "PutMyPerformance", httpContent);
             return result.IsSuccessStatusCode;
 
+        }
+
+        public async Task<bool> SaveUserPerformanceRevised(int TotalQuestions, int CorrectAnswerCount)
+        {
+            var client = new HttpClient();
+            var json = JsonConvert.SerializeObject(new {
+                TotalQuestions,
+                CorrectAnswerCount
+            });
+            var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+            //HttpContent httpContent = new StringContent(json);
+            //httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Settings.AccessToken);
+            var url = App.accessUrl + $"users/stats/{Settings.LoggedInUserId}";
+            var result = await client.PutAsync(url, stringContent);
+            
+            return result.IsSuccessStatusCode;
         }
 
     }

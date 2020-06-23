@@ -219,11 +219,14 @@ namespace QuestApp1.ViewModels
                     }
                     else
                     {
-                        UserPerformance userPerformance=new UserPerformance();
-                        userPerformance.UserId = Settings.Email;
-                        userPerformance.CorrectAnswerCount = _correctAnswersCount;
-                        userPerformance.TotalQuestions = _attemptedQuestionCount;
-                        await _questionService.SaveUserPerformance(_accessToken,Settings.Email, userPerformance);
+                        //UserPerformance userPerformance=new UserPerformance();
+                        //userPerformance.UserId = Settings.Email;
+                        //userPerformance.CorrectAnswerCount = _correctAnswersCount;
+                        //userPerformance.TotalQuestions = _attemptedQuestionCount;
+                        //await _questionService.SaveUserPerformance(_accessToken,Settings.Email, userPerformance);
+
+                        await _questionService.SaveUserPerformanceRevised(_attemptedQuestionCount,
+                            _correctAnswersCount);
                     }
                     
 

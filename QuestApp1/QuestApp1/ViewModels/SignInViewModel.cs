@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Input;
+using QuestApp1.Views;
 using Xamarin.Forms;
 
 namespace QuestApp1.ViewModels
@@ -14,6 +15,20 @@ namespace QuestApp1.ViewModels
     public class SignInViewModel: INotifyPropertyChanged
     {
         UserService userService = new UserService();
+
+        private bool _isBusy;
+
+        public bool IsBusy
+        {
+            get { return _isBusy; }
+            set
+            {
+                _isBusy = value;
+                ShowElements = !_isBusy;
+            }
+        }
+
+        public bool ShowElements { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
 
@@ -38,10 +53,12 @@ namespace QuestApp1.ViewModels
                        async ()=>
                         {
                             //AccessToken = await userService.SignInUser(Username, Password);
+
                             AccessToken = await userService.Login(Username, Password);
                             Settings.AccessToken = AccessToken;
                             Settings.Email = Username;
-                            
+                            await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
+
 
 
                         }

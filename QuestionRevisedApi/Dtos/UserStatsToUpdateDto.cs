@@ -4,6 +4,6 @@ namespace QuestionRevisedApi.Dtos
     {        
         public int TotalQuestions { get; set; }
         public int CorrectAnswerCount { get; set; }
-        public int TotalGamesCount { get; set; }
+        //public int TotalGamesCount { get; set; }
     }
 }

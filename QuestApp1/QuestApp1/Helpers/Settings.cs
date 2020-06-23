@@ -1,6 +1,7 @@
 ﻿
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
+using QuestApp1.Models;
 
 namespace QuestApp1.Helpers
 {
@@ -62,6 +63,21 @@ namespace QuestApp1.Helpers
                 AppSettings.AddOrUpdateValue("AccessToken", value);
             }
         }
+
+        
+
+        public static string LoggedInUserId
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault("UserId", ""); ;
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue("UserId", value);
+            }
+        }
+
 
     }
 }

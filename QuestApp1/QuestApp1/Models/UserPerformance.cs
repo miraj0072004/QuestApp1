@@ -12,6 +12,12 @@ namespace QuestApp1.Models
         public int TotalQuestions { get; set; }
         public int CorrectAnswerCount { get; set; }
         public int TotalGamesCount { get; set; }
-        
+
+        public UserPerformance()
+        {
+            this.TotalQuestions = 1;
+            this.TotalGamesCount = 1;
+            this.CorrectAnswerCount = 1;
+        }
     }
 }

@@ -15,7 +15,7 @@
             <Frame Padding="40" BorderColor="Aquamarine" VerticalOptions="FillAndExpand">
 
                 <StackLayout>
-                    <Label VerticalOptions="CenterAndExpand" FontSize="Medium">
+                    <Label IsVisible="{Binding ShowElements}" VerticalOptions="CenterAndExpand" FontSize="Medium">
                         <Label.FormattedText>
                             <FormattedString> 
                                 <Span Text="Total Number of Games : "/>
@@ -23,7 +23,7 @@
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
-                    <Label VerticalOptions="CenterAndExpand" FontSize="Medium">
+                    <Label IsVisible="{Binding ShowElements}" VerticalOptions="CenterAndExpand" FontSize="Medium">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="Total Number of Questions : "/>
@@ -31,8 +31,8 @@
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
-
-                    <Label VerticalOptions="CenterAndExpand" FontSize="Medium">
+                    <ActivityIndicator IsRunning="{Binding IsBusy}" VerticalOptions="Center" HorizontalOptions="Center"></ActivityIndicator>
+                    <Label IsVisible="{Binding ShowElements}" VerticalOptions="CenterAndExpand" FontSize="Medium">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="Correct Answers : "/>
@@ -41,7 +41,7 @@
                         </Label.FormattedText>
                     </Label>
 
-                    <Label VerticalOptions="CenterAndExpand" FontSize="Medium">
+                    <Label IsVisible="{Binding ShowElements}" VerticalOptions="CenterAndExpand" FontSize="Medium">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="Accuracy : "/>
@@ -51,7 +51,10 @@
                         </Label.FormattedText>
                     </Label>
                 </StackLayout>
+
+                
             </Frame>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
