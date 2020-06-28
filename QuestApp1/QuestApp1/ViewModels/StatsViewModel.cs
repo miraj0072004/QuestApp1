@@ -79,8 +79,15 @@ namespace QuestApp1.ViewModels
         {
             
             MyPerformance = await _statsService.GetMyStats(Settings.AccessToken);
-            var tempCorrectness= (float)MyPerformance.CorrectAnswerCount / MyPerformance.TotalQuestions;
-            Correctness = (float) Math.Round((Decimal) tempCorrectness, 2, MidpointRounding.AwayFromZero);
+            if (MyPerformance.TotalQuestions != 0)
+            {
+                var tempCorrectness = (float)MyPerformance.CorrectAnswerCount / MyPerformance.TotalQuestions;
+                Correctness = (float)Math.Round((Decimal)tempCorrectness, 2, MidpointRounding.AwayFromZero) * 100; 
+            }
+            else
+            {
+                Correctness = 0;
+            }
 
             IsBusy = false;
         }

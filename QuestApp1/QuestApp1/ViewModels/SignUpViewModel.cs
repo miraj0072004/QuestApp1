@@ -7,21 +7,25 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Input;
+using QuestApp1.Models;
 using Xamarin.Forms;
 
 namespace QuestApp1.ViewModels
 {
     public class SignUpViewModel : INotifyPropertyChanged
     {
+        private Page _page;
+
         //backing fields
         private string _message;
 
 
         UserService userService = new UserService();
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string ConfirmPassword { get; set; }
+        private string _firstName;
 
+        public UserForRegisterModel UserForRegisterModel { get; set; } = new UserForRegisterModel();
+
+        
         public string Message {
             get
             {
@@ -34,6 +38,11 @@ namespace QuestApp1.ViewModels
             }
         }
 
+        public SignUpViewModel(Page page)
+        {
+            _page = page;
+        }
+
         public ICommand SignUpCommand
         {
             get
@@ -41,18 +50,25 @@ namespace QuestApp1.ViewModels
                 return new Command(
                     async ()=>
                     {
-                        var isSuccess = await userService.SignUpUser(Email, Password, ConfirmPassword);
+                        if (!ValidationHelper.IsFormValid(UserForRegisterModel, _page))
+                        {
+                            return;
+                        }
+
+                        var isSuccess = await userService.SignUpUserRevised(UserForRegisterModel);
 
                         if (isSuccess)
                         {
                             Message = "User Registered Successfully";
-                            Settings.Email = Email;
-                            Settings.Password = Password;
+                            Settings.Email = UserForRegisterModel.Username;
+                            Settings.Password = UserForRegisterModel.Password;
+                            await App.Current.MainPage.DisplayAlert("Success","Successfully Registered","Ok");
                         }
                         else
                         {
                             Message = "Registration Failed";
                         }
+
                     }
                     );
             }

@@ -46,8 +46,8 @@ namespace QuestionRevisedApi.Data
         {
             var user = await _questionsRevisedContext.Users.FindAsync(userWithStatsUpdated.Id);
 
-            user.TotalQuestions = userWithStatsUpdated.TotalQuestions;
-            user.CorrectAnswerCount = userWithStatsUpdated.CorrectAnswerCount;
+            user.TotalQuestions += userWithStatsUpdated.TotalQuestions;
+            user.CorrectAnswerCount += userWithStatsUpdated.CorrectAnswerCount;
             user.TotalGamesCount += 1;
 
             await _questionsRevisedContext.SaveChangesAsync();

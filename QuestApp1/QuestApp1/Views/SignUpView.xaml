@@ -2,21 +2,27 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ViewModels="clr-namespace:QuestApp1.ViewModels"
-             x:Class="QuestApp1.Views.SignUpView">
-    <ContentPage.BindingContext>
+             x:Class="QuestApp1.Views.SignUpView"
+             NavigationPage.HasNavigationBar="False">
+    <!--<ContentPage.BindingContext>
         <ViewModels:SignUpViewModel/>
-    </ContentPage.BindingContext>
+    </ContentPage.BindingContext>-->
     <ContentPage.Content>
-        <StackLayout>
+        
             <StackLayout VerticalOptions="CenterAndExpand">
-                <Entry Text="{Binding Email}" Placeholder="Email" />
-                <Entry Text="{Binding Password}" Placeholder="Password" IsPassword="True"/>
-                <Entry Text="{Binding ConfirmPassword}" Placeholder="Confirm Password" IsPassword="True"/>
+                <Entry Text="{Binding UserForRegisterModel.FirstName}" Placeholder="Firstname" />
+                <Label x:Name="UserForRegisterModel_FirstNameError" IsVisible="False" TextColor="Red" />
+                <Entry Text="{Binding UserForRegisterModel.LastName}" Placeholder="Lastname" />
+                <Label x:Name="UserForRegisterModel_LastNameError" IsVisible="False" TextColor="Red" />
+                <Entry Text="{Binding UserForRegisterModel.Username}" Placeholder="Email" />
+                <Label x:Name="UserForRegisterModel_UsernameError" IsVisible="False" TextColor="Red"/>
+                <Entry Text="{Binding UserForRegisterModel.Password}" Placeholder="Password" IsPassword="True"/>
+                <Label x:Name="UserForRegisterModel_PasswordError" IsVisible="False" TextColor="Red"/>
                 <Button Text="Sign Up" Command="{Binding SignUpCommand}"/>
-                <Label Text="{Binding Message}"/>
+                <!--<Label Text="{Binding Message}"/>-->
 
                 <Button Text="Go To SignIn" TextColor="Blue" BackgroundColor="White" Clicked="GoToSignIn_Clicked"/>
             </StackLayout>           
-        </StackLayout>
+        
     </ContentPage.Content>
 </ContentPage>

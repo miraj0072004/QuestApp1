@@ -51,7 +51,7 @@ namespace QuestionRevisedApi.Controllers
 
         }
 
-        [Authorize(Roles = Role.Admin)]
+        //[Authorize(Roles = Role.Admin)]
         // GET: api/Questions/5
         [HttpGet("{id}", Name = "Get")]
         public async Task<IActionResult> GetQuestion(int id)

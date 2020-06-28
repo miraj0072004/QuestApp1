@@ -28,6 +28,8 @@ namespace QuestApp1
             //var mainViewModel = new QuestionViewModel();
             //Resources.Add("MainViewModel",mainViewModel);
 
+            
+
             MainPage = new NavigationPage(new LandingPage());
         }
 

@@ -17,53 +17,53 @@ namespace QuestApp1.Services
         //private string accessUrl = "http://10.5.42.37:45455/";
         //private string accessUrl = "http://192.168.1.2:45455/";
         //private string accessUrl = "http://192.168.43.1:5000/api/";
-        public async Task<bool> SignUpUser(string email, string password, string confirmPassword)
-        {
-            var client = new HttpClient();
+        //public async Task<bool> SignUpUser(string email, string password, string confirmPassword)
+        //{
+        //    var client = new HttpClient();
 
-            var registerBindingModel = new RegisterBindingModel()
-            {
-                Email = email,
-                Password = password,
-                ConfirmPassword = confirmPassword
-            };
+        //    var registerBindingModel = new RegisterBindingModel()
+        //    {
+        //        Email = email,
+        //        Password = password,
+        //        ConfirmPassword = confirmPassword
+        //    };
 
-            var json = JsonConvert.SerializeObject(registerBindingModel);
-            HttpContent content = new StringContent(json);
-            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+        //    var json = JsonConvert.SerializeObject(registerBindingModel);
+        //    HttpContent content = new StringContent(json);
+        //    content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
 
-            var response= await client.PostAsync(App.accessUrl+"api/Account/Register", content);
-            return response.IsSuccessStatusCode;
+        //    var response= await client.PostAsync(App.accessUrl+"api/Account/Register", content);
+        //    return response.IsSuccessStatusCode;
             
 
-        }
+        //}
 
-        public async Task<string> SignInUser (string username, string password)
-        {
+        //public async Task<string> SignInUser (string username, string password)
+        //{
             
-            var keyValues = new List<KeyValuePair<string, string>>
-            {
-                new KeyValuePair<string, string>("username",username),
-                new KeyValuePair<string, string>("password",password),
-                new KeyValuePair<string, string>("grant_type","password")
-            };
+        //    var keyValues = new List<KeyValuePair<string, string>>
+        //    {
+        //        new KeyValuePair<string, string>("username",username),
+        //        new KeyValuePair<string, string>("password",password),
+        //        new KeyValuePair<string, string>("grant_type","password")
+        //    };
 
-            //var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:7171/Token");
-            var request = new HttpRequestMessage(HttpMethod.Post, App.accessUrl + "Token");
-            request.Content = new FormUrlEncodedContent(keyValues);
+        //    //var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:7171/Token");
+        //    var request = new HttpRequestMessage(HttpMethod.Post, App.accessUrl + "Token");
+        //    request.Content = new FormUrlEncodedContent(keyValues);
 
-            var client = new HttpClient();
-            var response = await client.SendAsync(request);
+        //    var client = new HttpClient();
+        //    var response = await client.SendAsync(request);
 
-            var jwt = await response.Content.ReadAsStringAsync();
-            JObject jwtDynamic = JsonConvert.DeserializeObject<dynamic>(jwt);
+        //    var jwt = await response.Content.ReadAsStringAsync();
+        //    JObject jwtDynamic = JsonConvert.DeserializeObject<dynamic>(jwt);
 
-            var accessToken = jwtDynamic.Value<string>("access_token");
+        //    var accessToken = jwtDynamic.Value<string>("access_token");
 
-            Debug.WriteLine(await response.Content.ReadAsStringAsync());
+        //    Debug.WriteLine(await response.Content.ReadAsStringAsync());
 
-            return accessToken;
-        }
+        //    return accessToken;
+        //}
 
         public async Task<string> Login(string username, string password)
         {
@@ -96,6 +96,21 @@ namespace QuestApp1.Services
             Debug.WriteLine(await response.Content.ReadAsStringAsync());
 
             return accessToken;
+        }
+
+        public async Task<bool> SignUpUserRevised(UserForRegisterModel userForRegisterModel)
+        {
+            var client = new HttpClient();
+
+
+            var json = JsonConvert.SerializeObject(userForRegisterModel);
+            HttpContent content = new StringContent(json);
+            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
+            var response = await client.PostAsync(App.accessUrl + "auth/register", content);
+            return response.IsSuccessStatusCode;
+
+
         }
     }
 }

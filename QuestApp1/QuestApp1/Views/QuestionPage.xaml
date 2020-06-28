@@ -6,6 +6,7 @@
              xmlns:ViewModels ="clr-namespace:QuestApp1.ViewModels"
              NavigationPage.HasBackButton="False"
              xmlns:infra="clr-namespace:QuestApp1.Infrastructure"
+             NavigationPage.HasNavigationBar="False"
              >
     
     <ContentPage.Resources>

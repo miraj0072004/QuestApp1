@@ -34,7 +34,23 @@ namespace QuestApp1.Views
 
         private async void ToHome_OnClicked(object sender, EventArgs e)
         {
-            await Navigation.PopToRootAsync();
+            //await Navigation.PopToRootAsync();
+            //await Navigation.PushAsync(new HomePage());
+
+            var existingPages = Navigation.NavigationStack.ToList();
+
+            //existingPages.Reverse();
+            //foreach (var page in existingPages)
+            //{
+            //    if (page is HomePage)
+            //        return;
+
+            //    await Navigation.PopAsync();
+            //}
+
+            var questionsPage = existingPages[existingPages.Count-2];
+            Navigation.RemovePage(questionsPage);
+            await Navigation.PopAsync();
         }
 
         private async void PlayAgain_OnClicked(object sender, EventArgs e)

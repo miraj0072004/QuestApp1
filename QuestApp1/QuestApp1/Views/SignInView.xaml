@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ViewModels="clr-namespace:QuestApp1.ViewModels"
              x:Class="QuestApp1.Views.SignInView"             
-             xmlns:local1="clr-namespace:QuestApp1.Infrastructure">
+             xmlns:local1="clr-namespace:QuestApp1.Infrastructure"
+             NavigationPage.HasNavigationBar="False">
     <ContentPage.BindingContext>
         <ViewModels:SignInViewModel/>
     </ContentPage.BindingContext>

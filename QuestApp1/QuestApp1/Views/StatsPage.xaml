@@ -15,41 +15,46 @@
             <Frame Padding="40" BorderColor="Aquamarine" VerticalOptions="FillAndExpand">
 
                 <StackLayout>
-                    <Label IsVisible="{Binding ShowElements}" VerticalOptions="CenterAndExpand" FontSize="Medium">
-                        <Label.FormattedText>
-                            <FormattedString> 
-                                <Span Text="Total Number of Games : "/>
-                                <Span Text="{Binding MyPerformance.TotalGamesCount}"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <Label IsVisible="{Binding ShowElements}" VerticalOptions="CenterAndExpand" FontSize="Medium">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Total Number of Questions : "/>
-                                <Span Text="{Binding MyPerformance.TotalQuestions}"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <ActivityIndicator IsRunning="{Binding IsBusy}" VerticalOptions="Center" HorizontalOptions="Center"></ActivityIndicator>
-                    <Label IsVisible="{Binding ShowElements}" VerticalOptions="CenterAndExpand" FontSize="Medium">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Correct Answers : "/>
-                                <Span Text="{Binding MyPerformance.CorrectAnswerCount}"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
+                    <StackLayout IsEnabled="{Binding ShowElements}">
+                        <Label IsVisible="{Binding ShowElements}" VerticalOptions="CenterAndExpand" FontSize="Medium">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Total Number of Games : "/>
+                                    <Span Text="{Binding MyPerformance.TotalGamesCount}"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label IsVisible="{Binding ShowElements}" VerticalOptions="CenterAndExpand" FontSize="Medium">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Total Number of Questions : "/>
+                                    <Span Text="{Binding MyPerformance.TotalQuestions}"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
 
-                    <Label IsVisible="{Binding ShowElements}" VerticalOptions="CenterAndExpand" FontSize="Medium">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Accuracy : "/>
-                                <Span Text="{Binding Correctness}"/>
-                                <Span Text="%"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
+                        <Label IsVisible="{Binding ShowElements}" VerticalOptions="CenterAndExpand" FontSize="Medium">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Correct Answers : "/>
+                                    <Span Text="{Binding MyPerformance.CorrectAnswerCount}"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <Label IsVisible="{Binding ShowElements}" VerticalOptions="CenterAndExpand" FontSize="Medium">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Accuracy : "/>
+                                    <Span Text="{Binding Correctness}"/>
+                                    <Span Text="%"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </StackLayout>
+                    <StackLayout IsEnabled="{Binding IsBusy}" VerticalOptions="Center" HorizontalOptions="Center">
+                        <ActivityIndicator IsRunning="{Binding IsBusy}" VerticalOptions="Center" HorizontalOptions="Center"></ActivityIndicator>
+                    </StackLayout>
                 </StackLayout>
 
                 
