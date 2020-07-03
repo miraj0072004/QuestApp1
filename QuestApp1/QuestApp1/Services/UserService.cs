@@ -65,7 +65,7 @@ namespace QuestApp1.Services
         //    return accessToken;
         //}
 
-        public async Task<string> Login(string username, string password)
+        public async Task<bool> Login(UserForSignInModel userForSignInModel)
         {
            
 
@@ -77,8 +77,8 @@ namespace QuestApp1.Services
             //var response = await client.SendAsync(request);
 
             var loginUser = new User();
-            loginUser.Username = username;
-            loginUser.Password = password;
+            loginUser.Username = userForSignInModel.Username;
+            loginUser.Password = userForSignInModel.Password;
 
             var json = JsonConvert.SerializeObject(loginUser);
             var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
@@ -91,11 +91,19 @@ namespace QuestApp1.Services
             var accessToken = jwtDynamic.Value<string>("token");
             var userId = jwtDynamic.Value<string>("user");
 
+            if (accessToken == null)
+            {
+                return false;
+            }
+
             Settings.LoggedInUserId = userId;
+            Settings.AccessToken = accessToken;
+            Settings.Email = userForSignInModel.Username;
 
-            Debug.WriteLine(await response.Content.ReadAsStringAsync());
 
-            return accessToken;
+            //Debug.WriteLine(await response.Content.ReadAsStringAsync());
+
+            return true;
         }
 
         public async Task<bool> SignUpUserRevised(UserForRegisterModel userForRegisterModel)

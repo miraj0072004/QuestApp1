@@ -5,45 +5,59 @@
              x:Class="QuestApp1.Views.SignInView"             
              xmlns:local1="clr-namespace:QuestApp1.Infrastructure"
              NavigationPage.HasNavigationBar="False">
-    <ContentPage.BindingContext>
+    <!--<ContentPage.BindingContext>
         <ViewModels:SignInViewModel/>
-    </ContentPage.BindingContext>
+    </ContentPage.BindingContext>-->
     <ContentPage.Content>
-        <StackLayout>
-            <StackLayout VerticalOptions="CenterAndExpand">
-                <Entry Text="{Binding Username}" Placeholder="Username" />
-                <Entry Text="{Binding Password}" Placeholder="Password" IsPassword="True"/>
-                <Entry Text="{Binding AccessToken}" x:Name="accessToken" TextChanged="AccessToken_TextChanged"/>
-                
-                <!--<Switch x:Name="tokenSwitch">
-                    <Switch.Triggers>
-                        <DataTrigger TargetType="Switch" Binding="{Binding Source={x:Reference accessToken}, Path = Text.Length}" Value="0">
-                        --><!--<DataTrigger TargetType="Switch" Binding="{Binding Source=AccessToken}" Value="">--><!--
-                            <Setter Property="IsToggled" Value="False"/>
-                        </DataTrigger>
-                    </Switch.Triggers>
-                </Switch>
-                
+               <AbsoluteLayout>
+                    <StackLayout 
+                        AbsoluteLayout.LayoutBounds="0,0,1,1"
+                        AbsoluteLayout.LayoutFlags="All"
+                        Margin="20"
+                        >
+                        <StackLayout VerticalOptions="CenterAndExpand">
+                            <Entry Text="{Binding UserForSignInModel.Username}" Placeholder="Username"/>
+                            <Label x:Name="UserForSignInModel_UsernameError" IsVisible="False" TextColor="Red" />
+                            <Entry VerticalOptions="Center" Text="{Binding UserForSignInModel.Password}" Placeholder="Password" IsPassword="True"/>
+                            <Label x:Name="UserForSignInModel_PasswordError" IsVisible="False" TextColor="Red" />
+                            <!--<Entry Text="{Binding AccessToken}" x:Name="accessToken" TextChanged="AccessToken_TextChanged"/>-->
 
-                <Button Text="Navigate" IsVisible="False">
-                    <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference tokenSwitch}, Path=IsToggled}" Value="True" >
-                            <DataTrigger.EnterActions>
-                                <local1:NavigateAction/>
-                            </DataTrigger.EnterActions>
-                        </DataTrigger>
-                        
-                    </Button.Triggers> 
-                    
-                </Button>-->
-                
-                <Button Text="Sign In" Command="{Binding SignInCommand}"/>
+                            <!--<Switch x:Name="tokenSwitch">
+                                    <Switch.Triggers>
+                                        <DataTrigger TargetType="Switch" Binding="{Binding Source={x:Reference accessToken}, Path = Text.Length}" Value="0">
+                                        -->
+                            <!--<DataTrigger TargetType="Switch" Binding="{Binding Source=AccessToken}" Value="">-->
+                            <!--
+                                            <Setter Property="IsToggled" Value="False"/>
+                                        </DataTrigger>
+                                    </Switch.Triggers>
+                                </Switch>
+                                
 
-                
-                
+                                <Button Text="Navigate" IsVisible="False">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference tokenSwitch}, Path=IsToggled}" Value="True" >
+                                            <DataTrigger.EnterActions>
+                                                <local1:NavigateAction/>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                        
+                                    </Button.Triggers> 
+                                    
+                                </Button>-->
 
-
-            </StackLayout>
-        </StackLayout>
+                            <Button Text="Sign In" Command="{Binding SignInCommand}" HorizontalOptions="Center"/>
+                        </StackLayout>
+                    </StackLayout>
+                    <!-- Overlay -->
+                    <ContentView x:Name="overlay"
+                                 AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                                 AbsoluteLayout.LayoutFlags="All"
+                                 IsVisible="{Binding IsBusy}"
+                                 BackgroundColor="#C0808080"
+                                 Padding="10, 0">
+                        <ActivityIndicator Color="Crimson" IsRunning="{Binding IsBusy}" VerticalOptions="Center" HorizontalOptions="Center"></ActivityIndicator>
+                    </ContentView>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

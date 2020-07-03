@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Input;
+using QuestApp1.Models;
 using QuestApp1.Views;
 using Xamarin.Forms;
 
@@ -14,6 +15,7 @@ namespace QuestApp1.ViewModels
 {
     public class SignInViewModel: INotifyPropertyChanged
     {
+        private readonly Page _page;
         UserService userService = new UserService();
 
         private bool _isBusy;
@@ -24,6 +26,7 @@ namespace QuestApp1.ViewModels
             set
             {
                 _isBusy = value;
+                OnPropertyChanged();
                 ShowElements = !_isBusy;
             }
         }
@@ -31,6 +34,10 @@ namespace QuestApp1.ViewModels
         public bool ShowElements { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+
+        
+
+        public UserForSignInModel UserForSignInModel { get; set; } = new UserForSignInModel();
 
         private string _accessToken;
 
@@ -44,6 +51,11 @@ namespace QuestApp1.ViewModels
             }
         }
 
+        public SignInViewModel(Page page)
+        {
+            _page = page;
+        }
+
         public ICommand SignInCommand
         {
             get
@@ -51,13 +63,28 @@ namespace QuestApp1.ViewModels
                 return new Command
                     (
                        async ()=>
-                        {
+                       {
+                           IsBusy = true;
+
+                            if (!ValidationHelper.IsFormValid(UserForSignInModel, _page))
+                            {
+                                IsBusy = false;
+                                return;
+                            }
                             //AccessToken = await userService.SignInUser(Username, Password);
 
-                            AccessToken = await userService.Login(Username, Password);
-                            Settings.AccessToken = AccessToken;
-                            Settings.Email = Username;
-                            await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
+                            var loginSuccessful = await userService.Login(UserForSignInModel);
+
+                            if (loginSuccessful)
+                            {
+                               IsBusy = false;
+                               await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
+                            }
+                            else
+                            {
+                                IsBusy = false;
+                                await Application.Current.MainPage.DisplayAlert("Error", "There was an error trying to log you in. Please retry", "Ok");
+                            }
 
 
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using QuestApp1.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,6 +15,7 @@ namespace QuestApp1.Views
         public SignInView()
         {
             InitializeComponent();
+            BindingContext = new SignInViewModel(this);
         }
 
         private async void AccessToken_TextChanged(object sender, TextChangedEventArgs e)
