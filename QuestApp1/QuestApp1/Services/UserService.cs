@@ -89,16 +89,19 @@ namespace QuestApp1.Services
             JObject jwtDynamic = JsonConvert.DeserializeObject<dynamic>(jwt);
 
             var accessToken = jwtDynamic.Value<string>("token");
+            
             var userId = jwtDynamic.Value<string>("user");
 
             if (accessToken == null)
             {
                 return false;
             }
-
+            var accessTokenExpiration = jwtDynamic.Value<DateTime>(".expires");
+            Settings.AccessTokenExpiration = accessTokenExpiration;
             Settings.LoggedInUserId = userId;
             Settings.AccessToken = accessToken;
             Settings.Email = userForSignInModel.Username;
+            Settings.Password = userForSignInModel.Password;
 
 
             //Debug.WriteLine(await response.Content.ReadAsStringAsync());
@@ -119,6 +122,20 @@ namespace QuestApp1.Services
             return response.IsSuccessStatusCode;
 
 
+        }
+
+        public static async Task<bool> CheckTokenIsValid()
+        {
+            var client = new HttpClient();
+            HttpContent content = new StringContent("application/json");
+            var response = await client.PostAsync(App.accessUrl + "auth/validatetoken", content);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

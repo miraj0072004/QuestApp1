@@ -19,12 +19,12 @@ namespace QuestApp1.Views
 
         private void SignUp_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new SignUpView());
+            Navigation.PushAsync(new SignUpPage());
         }
 
         private void SignIn_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new SignInView());
+            Navigation.PushAsync(new SignInPage());
         }
 
         protected override bool OnBackButtonPressed()

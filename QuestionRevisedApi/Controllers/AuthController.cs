@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -102,6 +103,12 @@ namespace QuestionRevisedApi.Controllers
                 token = tokenHandler.WriteToken(token),
                 user = user.Id
             });
+        }
+
+        [HttpPost("validatetoken"), Authorize]
+        public async Task<IActionResult> TokenCheck()
+        {
+            return Ok();
         }
 
 

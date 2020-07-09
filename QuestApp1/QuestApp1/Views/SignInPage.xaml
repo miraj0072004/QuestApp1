@@ -2,8 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ViewModels="clr-namespace:QuestApp1.ViewModels"
-             x:Class="QuestApp1.Views.SignInView"             
+             x:Class="QuestApp1.Views.SignInPage"             
              xmlns:local1="clr-namespace:QuestApp1.Infrastructure"
+             xmlns:fontawesome="clr-namespace:FontAwesome;"
              NavigationPage.HasNavigationBar="False">
     <!--<ContentPage.BindingContext>
         <ViewModels:SignInViewModel/>
@@ -20,7 +21,16 @@
                             <Label x:Name="UserForSignInModel_UsernameError" IsVisible="False" TextColor="Red" />
                             <Entry VerticalOptions="Center" Text="{Binding UserForSignInModel.Password}" Placeholder="Password" IsPassword="True"/>
                             <Label x:Name="UserForSignInModel_PasswordError" IsVisible="False" TextColor="Red" />
-                            <!--<Entry Text="{Binding AccessToken}" x:Name="accessToken" TextChanged="AccessToken_TextChanged"/>-->
+
+                            <!--<Label 
+                                HorizontalOptions="Center"
+                                VerticalOptions="CenterAndExpand"
+                                FontFamily="{StaticResource FaFontFamily}"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.SignOutAlt}"
+                                FontSize="44"
+                                TextColor="Black"
+                                BackgroundColor="Aquamarine"/>-->
+                    <!--<Entry Text="{Binding AccessToken}" x:Name="accessToken" TextChanged="AccessToken_TextChanged"/>-->
 
                             <!--<Switch x:Name="tokenSwitch">
                                     <Switch.Triggers>
@@ -46,7 +56,13 @@
                                     
                                 </Button>-->
 
-                            <Button Text="Sign In" Command="{Binding SignInCommand}" HorizontalOptions="Center"/>
+                            <Button 
+                                    FontFamily="{StaticResource FaFontFamily}"
+                                    Text="{x:Static fontawesome:FontAwesomeIcons.SignInAlt}"
+                                    TextColor="Black"
+                                    FontSize="33"
+                                    Command="{Binding SignInCommand}"
+                                    HorizontalOptions="Center"/>
                         </StackLayout>
                     </StackLayout>
                     <!-- Overlay -->

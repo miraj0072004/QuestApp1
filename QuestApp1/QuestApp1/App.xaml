@@ -4,7 +4,37 @@
              xmlns:viewModels="clr-namespace:QuestApp1.ViewModels;assembly=QuestApp1"
              x:Class="QuestApp1.App"
              >
-    <!--<Application.Resources>
-                <viewModels:QuestionViewModel x:Key="MainViewModel"/>
-    </Application.Resources>-->
+    <Application.Resources>
+        <!--<viewModels:QuestionViewModel x:Key="MainViewModel"/>-->
+        
+        <ResourceDictionary>
+            <!--this font awesome addition attempt was according to the following link
+            https://medium.com/@tsjdevapps/use-fontawesome-in-a-xamarin-forms-app-2edf25311db4-->
+            <!--<OnPlatform x:TypeArguments="x:String" 
+                        x:Key="FontAwesomeBrands">
+                <On Platform="Android" 
+                    Value="FontAwesome5Brands.otf#Regular" />
+                
+            </OnPlatform>
+            <OnPlatform x:TypeArguments="x:String" 
+                        x:Key="FontAwesomeSolid">
+                <On Platform="Android" 
+                    Value="FontAwesome5Solid.otf#Regular" />
+
+            </OnPlatform>
+            <OnPlatform x:TypeArguments="x:String" 
+                        x:Key="FontAwesomeRegular">
+                <On Platform="Android" 
+                    Value="FontAwesome5Regular.otf#Regular" />
+
+            </OnPlatform>-->
+
+            <!--this was tried based on the following https://www.youtube.com/watch?v=p92T9djL2-U-->
+            <OnPlatform x:Key="FaFontFamily" x:TypeArguments="x:String">
+                <!--<On Platform="iOS" Value="Font Awesome 5 Free" />-->
+                <On Platform="Android" Value="fa-solid-900.ttf#Font Awesome 5 Free" />
+            </OnPlatform>
+
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

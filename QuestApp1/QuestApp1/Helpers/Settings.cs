@@ -1,4 +1,5 @@
 ﻿
+using System;
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
 using QuestApp1.Models;
@@ -64,7 +65,13 @@ namespace QuestApp1.Helpers
             }
         }
 
-        
+        public static DateTime AccessTokenExpiration
+        {
+            get => AppSettings.GetValueOrDefault("AccessTokenExpiration", DateTime.UtcNow);
+            set => AppSettings.AddOrUpdateValue("AccessTokenExpiration", value);
+        }
+
+
 
         public static string LoggedInUserId
         {
@@ -78,6 +85,6 @@ namespace QuestApp1.Helpers
             }
         }
 
-
+        
     }
 }

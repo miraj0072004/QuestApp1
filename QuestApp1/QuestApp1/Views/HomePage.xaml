@@ -3,18 +3,46 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="QuestApp1.Views.HomePage"
              NavigationPage.HasBackButton="False"
-             NavigationPage.HasNavigationBar="False">
+             NavigationPage.HasNavigationBar="False"
+             xmlns:ViewModels="clr-namespace:QuestApp1.ViewModels"
+             xmlns:fontawesome="clr-namespace:FontAwesome;assembly=QuestApp1">
+    <!--<ContentPage.BindingContext>
+        <ViewModels:HomeViewModel/>
+    </ContentPage.BindingContext>-->
     <ContentPage.Content>
+    
+
         
-            <Grid VerticalOptions="CenterAndExpand">
+        <Grid VerticalOptions="Fill">
                 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="2*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="14*"></RowDefinition>
+                </Grid.RowDefinitions>
 
-                <Grid Grid.Column="1" VerticalOptions="Center">
+
+                <Label 
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"
+                    FontFamily="{StaticResource FaFontFamily}"
+                    Text="{x:Static fontawesome:FontAwesomeIcons.SignOutAlt}"
+                    FontSize="33"
+                    TextColor="Black"
+                    
+                    >
+                    <!--<Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SignOutCommand}"></TapGestureRecognizer>
+                    </Label.GestureRecognizers>-->
+                </Label>
+
+                <Grid Grid.Column="1" Grid.Row="1" VerticalOptions="Center">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
@@ -34,10 +62,9 @@
                         BackgroundColor="CornflowerBlue"
                         Text="My StatsPage"
                         Clicked="Stats_OnClicked"/>
-            </Grid>
-
+                </Grid>
                 
-        </Grid>
+            </Grid>
             <!--<Button VerticalOptions="CenterAndExpand"
                     HorizontalOptions="Center"
                     BorderRadius="30"

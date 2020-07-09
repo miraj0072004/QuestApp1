@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace QuestApp1.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SignInView : ContentPage
+    public partial class SignInPage : ContentPage
     {
-        public SignInView()
+        public SignInPage()
         {
             InitializeComponent();
             BindingContext = new SignInViewModel(this);

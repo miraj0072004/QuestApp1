@@ -10,10 +10,10 @@ using Xamarin.Forms.Xaml;
 namespace QuestApp1.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SignUpView : ContentPage
+    public partial class SignUpPage : ContentPage
     {
         
-        public SignUpView()
+        public SignUpPage()
         {
             InitializeComponent();
             

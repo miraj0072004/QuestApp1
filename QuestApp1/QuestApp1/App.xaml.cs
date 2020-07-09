@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Threading.Tasks;
+using QuestApp1.Helpers;
 using QuestApp1.Models;
+using QuestApp1.Services;
 using QuestApp1.ViewModels;
 using QuestApp1.Views;
 using Xamarin.Forms;
@@ -30,7 +33,43 @@ namespace QuestApp1
 
             
 
-            MainPage = new NavigationPage(new LandingPage());
+           // MainPage = new NavigationPage(new LandingPage());
+
+            SetMainPage();
+        }
+
+        private void SetMainPage()
+        {
+            if (!string.IsNullOrEmpty(Settings.AccessToken))
+            {
+                //var isTokenValid = Task.Run(() => UserService.CheckTokenIsValid()).Result;
+                //if (isTokenValid)
+                //{
+                //    MainPage = new NavigationPage(new HomePage());
+                //}
+                //else
+                //{
+                //    Settings.AccessToken = String.Empty;
+                //    MainPage = new NavigationPage(new SignInPage());
+                //}
+
+                if (DateTime.UtcNow.AddHours(1) > Settings.AccessTokenExpiration)
+                {
+                    //var vm = new SignInViewModel();
+                    //vm.SignInCommand.Execute(null);
+                    
+
+                }
+                //MainPage = new NavigationPage(new HomePage());
+            }
+            else if (!string.IsNullOrEmpty(Settings.Email) && !string.IsNullOrEmpty(Settings.Password))
+            {
+                MainPage = new NavigationPage(new SignInPage());
+            }
+            else
+            {
+                MainPage = new NavigationPage(new LandingPage());
+            }
         }
 
         protected override void OnStart()

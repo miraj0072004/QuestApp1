@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ViewModels="clr-namespace:QuestApp1.ViewModels"
-             x:Class="QuestApp1.Views.SignUpView"
+             x:Class="QuestApp1.Views.SignUpPage"
              NavigationPage.HasNavigationBar="False">
     <!--<ContentPage.BindingContext>
         <ViewModels:SignUpViewModel/>

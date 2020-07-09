@@ -32,14 +32,35 @@ namespace QuestApp1.ViewModels
         }
 
         public bool ShowElements { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
 
-        
+        public string Username
+        {
+            get => _username;
+            set
+            {
+                if (value == _username) return;
+                _username = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Password
+        {
+            get => _password;
+            set
+            {
+                if (value == _password) return;
+                _password = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public UserForSignInModel UserForSignInModel { get; set; } = new UserForSignInModel();
 
         private string _accessToken;
+        private string _username;
+        private string _password;
 
         public string AccessToken
         {
@@ -54,6 +75,10 @@ namespace QuestApp1.ViewModels
         public SignInViewModel(Page page)
         {
             _page = page;
+
+            //Getting the credentials if they are already stored
+            UserForSignInModel.Username = Settings.Email;
+            UserForSignInModel.Password = Settings.Password;
         }
 
         public ICommand SignInCommand
@@ -66,12 +91,16 @@ namespace QuestApp1.ViewModels
                        {
                            IsBusy = true;
 
-                            if (!ValidationHelper.IsFormValid(UserForSignInModel, _page))
-                            {
-                                IsBusy = false;
-                                return;
-                            }
-                            //AccessToken = await userService.SignInUser(Username, Password);
+
+                           if (_page != null)
+                           {
+                               if (!ValidationHelper.IsFormValid(UserForSignInModel, _page))
+                               {
+                                   IsBusy = false;
+                                   return;
+                               } 
+                           }
+                           //AccessToken = await userService.SignInUser(Username, Password);
 
                             var loginSuccessful = await userService.Login(UserForSignInModel);
 
@@ -98,8 +127,11 @@ namespace QuestApp1.ViewModels
             //Username = Settings.Email.Length==0?"miraj0072004@gmail.com": Settings.Email;
             //Password = Settings.Password.Length==0?"Shahrukh0072004$":Settings.Password;
 
-            Username = Settings.Email.Length == 0 ? "miraj0072004" : Settings.Email;
-            Password = Settings.Password.Length == 0 ? "shahrukh0072004" : Settings.Password;
+            //Username = Settings.Email.Length == 0 ? "miraj0072004" : Settings.Email;
+            //Password = Settings.Password.Length == 0 ? "shahrukh0072004" : Settings.Password;
+
+            UserForSignInModel.Username = Settings.Email;
+            UserForSignInModel.Password = Settings.Password;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
