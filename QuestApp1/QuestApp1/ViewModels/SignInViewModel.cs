@@ -81,43 +81,44 @@ namespace QuestApp1.ViewModels
             UserForSignInModel.Password = Settings.Password;
         }
 
+        // public ICommand SignInCommand { get; set; }
         public ICommand SignInCommand
         {
             get
             {
                 return new Command
                     (
-                       async ()=>
+                       async () =>
                        {
                            IsBusy = true;
 
 
-                           if (_page != null)
+                           if (_page is SignInPage)
                            {
                                if (!ValidationHelper.IsFormValid(UserForSignInModel, _page))
                                {
                                    IsBusy = false;
                                    return;
-                               } 
+                               }
                            }
                            //AccessToken = await userService.SignInUser(Username, Password);
 
-                            var loginSuccessful = await userService.Login(UserForSignInModel);
+                           var loginSuccessful = await userService.Login(UserForSignInModel);
 
-                            if (loginSuccessful)
-                            {
+                           if (loginSuccessful)
+                           {
                                IsBusy = false;
                                await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
-                            }
-                            else
-                            {
-                                IsBusy = false;
-                                await Application.Current.MainPage.DisplayAlert("Error", "There was an error trying to log you in. Please retry", "Ok");
-                            }
+                           }
+                           else
+                           {
+                               IsBusy = false;
+                               await Application.Current.MainPage.DisplayAlert("Error", "There was an error trying to log you in. Please retry", "Ok");
+                           }
 
 
 
-                        }
+                       }
                     );
             }
         }
@@ -130,8 +131,40 @@ namespace QuestApp1.ViewModels
             //Username = Settings.Email.Length == 0 ? "miraj0072004" : Settings.Email;
             //Password = Settings.Password.Length == 0 ? "shahrukh0072004" : Settings.Password;
 
+            //_page = new Page();
             UserForSignInModel.Username = Settings.Email;
             UserForSignInModel.Password = Settings.Password;
+            //SignInCommand = new Command(async () =>
+            //{
+            //    IsBusy = true;
+
+
+            //    if (_page != null)
+            //    {
+            //        if (!ValidationHelper.IsFormValid(UserForSignInModel, _page))
+            //        {
+            //            IsBusy = false;
+            //            return;
+            //        }
+            //    }
+            //    //AccessToken = await userService.SignInUser(Username, Password);
+
+            //    var loginSuccessful = await userService.Login(UserForSignInModel);
+
+            //    if (loginSuccessful)
+            //    {
+            //        IsBusy = false;
+            //        await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
+            //    }
+            //    else
+            //    {
+            //        IsBusy = false;
+            //        await Application.Current.MainPage.DisplayAlert("Error", "There was an error trying to log you in. Please retry", "Ok");
+            //    }
+
+
+
+            //});
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

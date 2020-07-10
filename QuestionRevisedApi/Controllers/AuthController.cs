@@ -101,7 +101,8 @@ namespace QuestionRevisedApi.Controllers
             return Ok(new
             {
                 token = tokenHandler.WriteToken(token),
-                user = user.Id
+                user = user.Id,
+                expiry = DateTime.UtcNow.AddDays(7)
             });
         }
 

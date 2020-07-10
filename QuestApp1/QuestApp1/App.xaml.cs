@@ -56,11 +56,28 @@ namespace QuestApp1
                 if (DateTime.UtcNow.AddHours(1) > Settings.AccessTokenExpiration)
                 {
                     //var vm = new SignInViewModel();
-                    //vm.SignInCommand.Execute(null);
-                    
+                    UserForSignInModel userForSignInModel = new UserForSignInModel{Password = Settings.Password, Username = Settings.Email};
+                    UserService userService = new UserService();
+                    var loginSuccessful = Task.Run(()=>userService.Login(userForSignInModel)).Result;
+
+                    if (loginSuccessful)
+                    {
+
+                        MainPage = new NavigationPage(new HomePage());
+                    }
+                    else
+                    {
+
+                        MainPage = new NavigationPage(new SignInPage());
+                    }
+
 
                 }
-                //MainPage = new NavigationPage(new HomePage());
+                else
+                {
+                    MainPage = new NavigationPage(new HomePage());
+                }
+                
             }
             else if (!string.IsNullOrEmpty(Settings.Email) && !string.IsNullOrEmpty(Settings.Password))
             {

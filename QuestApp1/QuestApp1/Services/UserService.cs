@@ -96,7 +96,7 @@ namespace QuestApp1.Services
             {
                 return false;
             }
-            var accessTokenExpiration = jwtDynamic.Value<DateTime>(".expires");
+            var accessTokenExpiration = jwtDynamic.Value<DateTime>("expiry");
             Settings.AccessTokenExpiration = accessTokenExpiration;
             Settings.LoggedInUserId = userId;
             Settings.AccessToken = accessToken;

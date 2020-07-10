@@ -25,6 +25,14 @@ namespace QuestApp1.ViewModels
                         {
                             Settings.AccessToken = String.Empty;
                             Settings.AccessTokenExpiration = DateTime.UtcNow;
+
+                            IReadOnlyList<Page> navStack = Application.Current.MainPage.Navigation.NavigationStack;
+
+                            if (navStack[0] is HomePage)
+                            {
+                                Application.Current.MainPage.Navigation.InsertPageBefore(new SignInPage(), navStack[0]);
+                            }
+
                             await Application.Current.MainPage.Navigation.PopAsync();
                         }
                     }

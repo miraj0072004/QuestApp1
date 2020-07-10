@@ -6,9 +6,9 @@
              NavigationPage.HasNavigationBar="False"
              xmlns:ViewModels="clr-namespace:QuestApp1.ViewModels"
              xmlns:fontawesome="clr-namespace:FontAwesome;assembly=QuestApp1">
-    <!--<ContentPage.BindingContext>
+    <ContentPage.BindingContext>
         <ViewModels:HomeViewModel/>
-    </ContentPage.BindingContext>-->
+    </ContentPage.BindingContext>
     <ContentPage.Content>
     
 
@@ -37,9 +37,9 @@
                     TextColor="Black"
                     
                     >
-                    <!--<Label.GestureRecognizers>
+                    <Label.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding SignOutCommand}"></TapGestureRecognizer>
-                    </Label.GestureRecognizers>-->
+                    </Label.GestureRecognizers>
                 </Label>
 
                 <Grid Grid.Column="1" Grid.Row="1" VerticalOptions="Center">
