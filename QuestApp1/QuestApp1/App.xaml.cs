@@ -40,6 +40,9 @@ namespace QuestApp1
 
         private void SetMainPage()
         {
+            //For testing purposes
+            //Settings.Email = null;
+            //Settings.Password = null;
             if (!string.IsNullOrEmpty(Settings.AccessToken))
             {
                 //var isTokenValid = Task.Run(() => UserService.CheckTokenIsValid()).Result;

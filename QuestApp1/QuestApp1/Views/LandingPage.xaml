@@ -1,18 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:QuestApp1.Infrastructure"
+             xmlns:infa="clr-namespace:QuestApp1.Infrastructure"
              x:Class="QuestApp1.Views.LandingPage"
+             xmlns:local="clr-namespace:ButtonCircle.FormsPlugin.Abstractions;assembly=ButtonCircle.FormsPlugin.Abstractions"
              NavigationPage.HasBackButton="False"
-             NavigationPage.HasNavigationBar="False">
+             NavigationPage.HasNavigationBar="False"
+             BackgroundImageSource="{infa:ImageResource QuestApp1.Images.bg1.jpg}">
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Image Source="{local:ImageResource QuestApp1.Images.QuizTime.png}" />
+            <Image Source="{infa:ImageResource QuestApp1.Images.logo1.png}" />
             <Grid Grid.Row="1">
                 <!--<Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -21,9 +23,33 @@
 
                 <Button Grid.Row="0" Text="Sign Up" Clicked="SignUp_Clicked" HorizontalOptions="Center"/>
                 <Button Grid.Row="1" Text="Sign In" Clicked="SignIn_Clicked" HorizontalOptions="Center"/>-->
-                <StackLayout>
-                    <Button  Text="Sign Up" Clicked="SignUp_Clicked" VerticalOptions="CenterAndExpand" HorizontalOptions="Center"/>
-                    <Button  Text="Sign In" Clicked="SignIn_Clicked" VerticalOptions="CenterAndExpand" HorizontalOptions="Center"/>
+                <StackLayout Orientation="Horizontal" VerticalOptions="Start" >
+                    <!--<ImageButton   Clicked="SignUp_Clicked" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                    <ImageButton   Clicked="SignIn_Clicked" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>-->
+                    <local:CircleButton
+                        FontIcon="FontAwesome"
+                        HorizontalOptions="CenterAndExpand"
+                        Icon="fa-user-plus"
+                        FontSize="30"
+                        TextColor="Black"
+                        CornerRadius="35"
+                        HeightRequest="70" WidthRequest="70" 
+                        BorderThickness="5" BorderColor="Black" 
+                        BackgroundColor="#E36F3A"
+                        Clicked="SignUp_Clicked">
+                    </local:CircleButton>
+                    <local:CircleButton
+                        FontIcon="FontAwesome"
+                        HorizontalOptions="CenterAndExpand"
+                        Icon="fa-sign-in"
+                        FontSize="30"
+                        CornerRadius="35"
+                        TextColor="Black" 
+                        HeightRequest="70" WidthRequest="70" 
+                        BorderThickness="5" BorderColor="Black" 
+                        BackgroundColor="#E36F3A"
+                        Clicked="SignIn_Clicked">
+                    </local:CircleButton>
                 </StackLayout>
 
             </Grid>
