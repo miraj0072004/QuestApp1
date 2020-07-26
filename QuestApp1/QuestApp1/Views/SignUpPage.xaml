@@ -2,26 +2,128 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ViewModels="clr-namespace:QuestApp1.ViewModels"
+             xmlns:infrastructure="clr-namespace:QuestApp1.Infrastructure;assembly=QuestApp1"
+             xmlns:local="clr-namespace:ButtonCircle.FormsPlugin.Abstractions;assembly=ButtonCircle.FormsPlugin.Abstractions"
              x:Class="QuestApp1.Views.SignUpPage"
-             NavigationPage.HasNavigationBar="False">
+             NavigationPage.HasNavigationBar="False"
+             BackgroundImageSource="{infrastructure:ImageResource QuestApp1.Images.bg1.jpg}">
     <!--<ContentPage.BindingContext>
         <ViewModels:SignUpViewModel/>
     </ContentPage.BindingContext>-->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Entry">
+                <Setter Property="TextColor" Value="White"></Setter>
+                <Setter Property="PlaceholderColor" Value="White"></Setter>
+            </Style>
+
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="OrangeRed"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
         
-            <StackLayout VerticalOptions="CenterAndExpand">
-                <Entry Text="{Binding UserForRegisterModel.FirstName}" Placeholder="Firstname" />
-                <Label x:Name="UserForRegisterModel_FirstNameError" IsVisible="False" TextColor="Red" />
-                <Entry Text="{Binding UserForRegisterModel.LastName}" Placeholder="Lastname" />
-                <Label x:Name="UserForRegisterModel_LastNameError" IsVisible="False" TextColor="Red" />
-                <Entry Text="{Binding UserForRegisterModel.Username}" Placeholder="Email" />
-                <Label x:Name="UserForRegisterModel_UsernameError" IsVisible="False" TextColor="Red"/>
-                <Entry Text="{Binding UserForRegisterModel.Password}" Placeholder="Password" IsPassword="True"/>
-                <Label x:Name="UserForRegisterModel_PasswordError" IsVisible="False" TextColor="Red"/>
-                <Button Text="Sign Up" Command="{Binding SignUpCommand}"/>
-                <!--<Label Text="{Binding Message}"/>-->
+            <StackLayout VerticalOptions="CenterAndExpand" Padding="20">
+                <Entry x:Name="firtnameEntry" Text="{Binding Firstname, Mode=TwoWay}"
+                       Placeholder="Firstname"/>
+                <Label x:Name="UserForRegisterModel_FirstNameError"
+                       IsVisible="False"/>
+                <Switch x:Name="switch1"
+                        IsVisible="False">
+                    <Switch.Triggers>
+                        <DataTrigger TargetType="Switch"
+                                     Binding="{Binding Source={x:Reference firtnameEntry},
+                                     Path=Text.Length}"
+                                     Value="0">
+                            <Setter Property="IsToggled" Value="True" />
+                        </DataTrigger>
+                    </Switch.Triggers>
+                </Switch>
 
-                <Button Text="Go To SignIn" TextColor="Blue" BackgroundColor="White" Clicked="GoToSignIn_Clicked"/>
+                <Entry x:Name="lastnameEntry"
+                       Text="{Binding Lastname, Mode=TwoWay}"
+                       Placeholder="Lastname"/>
+                <Label x:Name="UserForRegisterModel_LastNameError"
+                       IsVisible="False"/>
+                <Switch x:Name="switch2"
+                        IsVisible="False">
+                    <Switch.Triggers>
+                        <DataTrigger TargetType="Switch"
+                                     Binding="{Binding Source={x:Reference lastnameEntry},
+                                     Path=Text.Length}"
+                                     Value="0">
+                            <Setter Property="IsToggled" Value="True" />
+                        </DataTrigger>
+                    </Switch.Triggers>
+                </Switch>
+
+                <Entry x:Name="usernameEntry" 
+                       Text="{Binding Username, Mode=TwoWay}"
+                       Placeholder="Email"/>
+                <Label x:Name="UserForRegisterModel_UsernameError"
+                       IsVisible="False"/>
+                <Switch x:Name="switch3"
+                        IsVisible="False">
+                    <Switch.Triggers>
+                        <DataTrigger TargetType="Switch"
+                                     Binding="{Binding Source={x:Reference usernameEntry},
+                                         Path=Text.Length}"
+                                     Value="0">
+                            <Setter Property="IsToggled" Value="True" />
+                        </DataTrigger>
+                    </Switch.Triggers>
+                </Switch>
+
+            <Entry x:Name="passwordEntry"
+                   Text="{Binding Password, Mode=TwoWay}"
+                   Placeholder="Password"
+                   IsPassword="True"/>
+                <Label x:Name="UserForRegisterModel_PasswordError"
+                       IsVisible="False"/>
+                <Switch x:Name="switch4"
+                        IsVisible="False">
+                    <Switch.Triggers>
+                        <DataTrigger TargetType="Switch"
+                                     Binding="{Binding Source={x:Reference passwordEntry},
+                                         Path=Text.Length}"
+                                     Value="0">
+                            <Setter Property="IsToggled" Value="True" />
+                        </DataTrigger>
+                    </Switch.Triggers>
+                </Switch>
+            <!--<Button Text="Sign Up" Command="{Binding SignUpCommand}"  TextColor="White"/>-->
+
+
+            <local:CircleButton
+                FontIcon="FontAwesome"
+                HorizontalOptions="CenterAndExpand"
+                Icon="fa-user"
+                FontSize="30"
+                TextColor="Black"
+                CornerRadius="35"
+                HeightRequest="70" WidthRequest="70" 
+                
+                BackgroundColor="#E36F3A"
+                Command="{Binding SignUpCommand}"
+                >
+                <!--<local:CircleButton.Triggers>
+                    <MultiTrigger TargetType="local:CircleButton">
+                        <MultiTrigger.Conditions>
+                            <BindingCondition Binding="{Binding Source={x:Reference switch1}, Path=IsToggled}" Value="False"></BindingCondition>
+                            <BindingCondition Binding="{Binding Source={x:Reference switch2}, Path=IsToggled}" Value="False"></BindingCondition>
+                            <BindingCondition Binding="{Binding Source={x:Reference switch3}, Path=IsToggled}" Value="False"></BindingCondition>
+                            <BindingCondition Binding="{Binding Source={x:Reference switch4}, Path=IsToggled}" Value="False"></BindingCondition>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="IsEnabled" Value="True"></Setter>
+                    </MultiTrigger>
+                </local:CircleButton.Triggers>-->
+            </local:CircleButton>
+
+            <!--<Label Text="{Binding Message}"/>-->
+
+                <!--<Button Text="Go To SignIn" TextColor="Blue" BackgroundColor="White" Clicked="GoToSignIn_Clicked"/>-->
             </StackLayout>           
         
     </ContentPage.Content>
