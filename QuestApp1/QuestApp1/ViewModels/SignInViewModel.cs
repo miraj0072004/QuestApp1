@@ -40,7 +40,9 @@ namespace QuestApp1.ViewModels
             {
                 if (value == _username) return;
                 _username = value;
+                UserForSignInModel.Username = _username;
                 OnPropertyChanged();
+                ((Command)SignInCommand).ChangeCanExecute();
             }
         }
 
@@ -51,11 +53,13 @@ namespace QuestApp1.ViewModels
             {
                 if (value == _password) return;
                 _password = value;
+                UserForSignInModel.Password = _password;
                 OnPropertyChanged();
+                ((Command)SignInCommand).ChangeCanExecute();
             }
         }
 
-
+        public ICommand SignInCommand { get; set; }
         public UserForSignInModel UserForSignInModel { get; set; } = new UserForSignInModel();
 
         private string _accessToken;
@@ -79,49 +83,50 @@ namespace QuestApp1.ViewModels
             //Getting the credentials if they are already stored
             UserForSignInModel.Username = Settings.Email;
             UserForSignInModel.Password = Settings.Password;
+
+            SignInCommand = new Command
+            (
+                async () =>
+                {
+                    IsBusy = true;
+
+
+                    if (_page is SignInPage)
+                    {
+                        if (!ValidationHelper.IsFormValid(UserForSignInModel, _page))
+                        {
+                            IsBusy = false;
+                            return;
+                        }
+                    }
+                    //AccessToken = await userService.SignInUser(Username, Password);
+
+                    var loginSuccessful = await userService.Login(UserForSignInModel);
+
+                    if (loginSuccessful)
+                    {
+                        IsBusy = false;
+                        await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
+                    }
+                    else
+                    {
+                        IsBusy = false;
+                        await Application.Current.MainPage.DisplayAlert("Error", "There was an error trying to log you in. Please retry", "Ok");
+                    }
+
+
+
+                },
+                () =>
+                {
+                    var canSignIn = Username != "" && Password != "";
+                    return canSignIn;
+                }
+            );
         }
 
-        // public ICommand SignInCommand { get; set; }
-        public ICommand SignInCommand
-        {
-            get
-            {
-                return new Command
-                    (
-                       async () =>
-                       {
-                           IsBusy = true;
+        
 
-
-                           if (_page is SignInPage)
-                           {
-                               if (!ValidationHelper.IsFormValid(UserForSignInModel, _page))
-                               {
-                                   IsBusy = false;
-                                   return;
-                               }
-                           }
-                           //AccessToken = await userService.SignInUser(Username, Password);
-
-                           var loginSuccessful = await userService.Login(UserForSignInModel);
-
-                           if (loginSuccessful)
-                           {
-                               IsBusy = false;
-                               await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
-                           }
-                           else
-                           {
-                               IsBusy = false;
-                               await Application.Current.MainPage.DisplayAlert("Error", "There was an error trying to log you in. Please retry", "Ok");
-                           }
-
-
-
-                       }
-                    );
-            }
-        }
 
         public SignInViewModel()
         {

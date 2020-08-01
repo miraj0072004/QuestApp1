@@ -4,11 +4,26 @@
              xmlns:ViewModels="clr-namespace:QuestApp1.ViewModels"
              x:Class="QuestApp1.Views.SignInPage"             
              xmlns:local1="clr-namespace:QuestApp1.Infrastructure"
-             xmlns:fontawesome="clr-namespace:FontAwesome;"
-             NavigationPage.HasNavigationBar="False">
+             
+             xmlns:local="clr-namespace:ButtonCircle.FormsPlugin.Abstractions;assembly=ButtonCircle.FormsPlugin.Abstractions"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundImageSource="{local1:ImageResource QuestApp1.Images.bg1.jpg}">
     <!--<ContentPage.BindingContext>
         <ViewModels:SignInViewModel/>
     </ContentPage.BindingContext>-->
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Entry">
+                <Setter Property="TextColor" Value="White"></Setter>
+                <Setter Property="PlaceholderColor" Value="White"></Setter>
+            </Style>
+
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="OrangeRed"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
                <AbsoluteLayout>
                     <StackLayout 
@@ -17,10 +32,10 @@
                         Margin="20"
                         >
                         <StackLayout VerticalOptions="CenterAndExpand">
-                            <Entry Text="{Binding UserForSignInModel.Username}" Placeholder="Username"/>
-                            <Label x:Name="UserForSignInModel_UsernameError" IsVisible="False" TextColor="Red" />
-                            <Entry VerticalOptions="Center" Text="{Binding UserForSignInModel.Password}" Placeholder="Password" IsPassword="True"/>
-                            <Label x:Name="UserForSignInModel_PasswordError" IsVisible="False" TextColor="Red" />
+                            <Entry Text="{Binding Username, Mode=TwoWay}" Placeholder="Username"/>
+                            <Label x:Name="UserForSignInModel_UsernameError" IsVisible="False"/>
+                            <Entry VerticalOptions="Center" Text="{Binding Password, Mode=TwoWay}" Placeholder="Password" IsPassword="True"/>
+                            <Label x:Name="UserForSignInModel_PasswordError" IsVisible="False"/>
 
                             <!--<Label 
                                 HorizontalOptions="Center"
@@ -56,14 +71,28 @@
                                     
                                 </Button>-->
 
-                            <Button 
+                            <!--<Button 
                                     FontFamily="{StaticResource FaFontFamily}"
                                     Text="{x:Static fontawesome:FontAwesomeIcons.SignInAlt}"
                                     TextColor="Black"
                                     FontSize="33"
                                     Command="{Binding SignInCommand}"
-                                    HorizontalOptions="Center"/>
-                        </StackLayout>
+                                    HorizontalOptions="Center"/>-->
+
+                            <local:CircleButton
+                                FontIcon="FontAwesome"
+                                HorizontalOptions="CenterAndExpand"
+                                Icon="fa-sign-in"
+                                FontSize="30"
+                                TextColor="Black"
+                                CornerRadius="35"
+                                HeightRequest="70" WidthRequest="70" 
+                
+                                BackgroundColor="#E36F3A"
+                                Command="{Binding SignInCommand}"
+                            >
+                            </local:CircleButton>
+                </StackLayout>
                     </StackLayout>
                     <!-- Overlay -->
                     <ContentView x:Name="overlay"
