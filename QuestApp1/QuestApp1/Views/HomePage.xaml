@@ -4,10 +4,13 @@
              x:Class="QuestApp1.Views.HomePage"
              NavigationPage.HasBackButton="False"
              NavigationPage.HasNavigationBar="False"
-             xmlns:ViewModels="clr-namespace:QuestApp1.ViewModels"
-             xmlns:fontawesome="clr-namespace:FontAwesome;assembly=QuestApp1">
+             xmlns:viewModels="clr-namespace:QuestApp1.ViewModels"
+             xmlns:fontawesome="clr-namespace:FontAwesome;assembly=QuestApp1"
+             xmlns:infrastructure="clr-namespace:QuestApp1.Infrastructure;assembly=QuestApp1"
+             xmlns:local="clr-namespace:ButtonCircle.FormsPlugin.Abstractions;assembly=ButtonCircle.FormsPlugin.Abstractions"
+             BackgroundImageSource="{infrastructure:ImageResource QuestApp1.Images.bg1.jpg}">
     <ContentPage.BindingContext>
-        <ViewModels:HomeViewModel/>
+        <viewModels:HomeViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
     
@@ -43,24 +46,30 @@
                 </Label>
 
                 <Grid Grid.Column="1" Grid.Row="1" VerticalOptions="Center">
-                    <Grid.RowDefinitions>
+                    <!--<Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Button
+                    </Grid.RowDefinitions>-->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <local:CircleButton
                         VerticalOptions="Center"
-                        Grid.Row="0"
+                        HorizontalOptions="Center"
+                        Grid.Column="0"
                         CornerRadius="30"
-                        BackgroundColor="Green"
-                        Text="Play"
+                        FontIcon="FontAwesome"
+                        Icon="fa-play"
                         Clicked="Play_Clicked"/>
 
-                    <Button
+                    <local:CircleButton
                         VerticalOptions="Center"
-                        Grid.Row="1"
+                        HorizontalOptions="Center"
+                        Grid.Column="1"
                         CornerRadius="30"
-                        BackgroundColor="CornflowerBlue"
-                        Text="My StatsPage"
+                        FontIcon="FontAwesome"
+                        Icon="fa-chart-line"
                         Clicked="Stats_OnClicked"/>
                 </Grid>
                 
