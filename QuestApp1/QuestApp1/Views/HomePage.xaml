@@ -37,7 +37,7 @@
                     FontFamily="{StaticResource FaFontFamily}"
                     Text="{x:Static fontawesome:FontAwesomeIcons.SignOutAlt}"
                     FontSize="33"
-                    TextColor="Black"
+                    TextColor="#E36F3A"
                     
                     >
                     <Label.GestureRecognizers>
@@ -56,20 +56,26 @@
                     </Grid.ColumnDefinitions>
                     <local:CircleButton
                         VerticalOptions="Center"
-                        HorizontalOptions="Center"
+                        HorizontalOptions="Start"
                         Grid.Column="0"
-                        CornerRadius="30"
+                        CornerRadius="35"
+                        HeightRequest="70"
+                        WidthRequest="70"
                         FontIcon="FontAwesome"
+                        BackgroundColor="#E36F3A"
                         Icon="fa-play"
                         Clicked="Play_Clicked"/>
 
                     <local:CircleButton
                         VerticalOptions="Center"
-                        HorizontalOptions="Center"
+                        HorizontalOptions="End"
                         Grid.Column="1"
-                        CornerRadius="30"
+                        CornerRadius="35"
+                        HeightRequest="70"
+                        WidthRequest="70"
                         FontIcon="FontAwesome"
-                        Icon="fa-chart-line"
+                        BackgroundColor="#E36F3A"
+                        Icon="fa-area-chart"
                         Clicked="Stats_OnClicked"/>
                 </Grid>
                 
