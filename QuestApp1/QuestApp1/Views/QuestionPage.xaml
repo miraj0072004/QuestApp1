@@ -5,14 +5,19 @@
              xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
              xmlns:ViewModels ="clr-namespace:QuestApp1.ViewModels"
              NavigationPage.HasBackButton="False"
-             xmlns:infra="clr-namespace:QuestApp1.Infrastructure"
+             xmlns:infrastructure="clr-namespace:QuestApp1.Infrastructure;assembly=QuestApp1"
              NavigationPage.HasNavigationBar="False"
-             >
+             BackgroundImageSource="{infrastructure:ImageResource QuestApp1.Images.bg1.jpg}">
+             
     
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="input:RadioButton">
                 <Setter Property="Color" Value="DeepSkyBlue"></Setter>
+                <Setter Property="TextColor" Value="White"></Setter>
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="White"></Setter>
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -155,13 +160,13 @@
                         <Label.Triggers>
                             <DataTrigger TargetType="Label" Binding="{Binding CorrectAnswer}" Value="1">
                                 <DataTrigger.EnterActions>
-                                    <infra:ScoreAction Scale="2" TextColor="LimeGreen"></infra:ScoreAction>
+                                    <infrastructure:ScoreAction Scale="2" TextColor="LimeGreen"></infrastructure:ScoreAction>
                                 </DataTrigger.EnterActions>
                             </DataTrigger>
 
                             <DataTrigger TargetType="Label" Binding="{Binding CorrectAnswer}" Value="0">
                                 <DataTrigger.EnterActions>
-                                    <infra:ScoreAction Scale="2" TextColor="Red"></infra:ScoreAction>
+                                    <infrastructure:ScoreAction Scale="2" TextColor="Red"></infrastructure:ScoreAction>
                                 </DataTrigger.EnterActions>
                             </DataTrigger>
                     </Label.Triggers>
